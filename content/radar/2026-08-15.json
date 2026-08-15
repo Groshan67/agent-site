@@ -1,0 +1,35 @@
+{
+  "date": "2026-08-15",
+  "items": [
+    {
+      "slug": "openwork",
+      "name": "OpenWork",
+      "url": "https://github.com/different-ai/openwork",
+      "tags": ["agent-workflows", "mcp", "desktop"],
+      "verdict": "worth-testing",
+      "take": "OpenWork is an open-source desktop workspace for sharing AI workflows across macOS, Windows, and Linux. Its MCP layer lets an existing coding agent reuse the same skills, connections, and services instead of making the desktop app the only entry point.",
+      "why": "The useful idea here is portability: a team can define a capability once and surface it in the agent each person already uses. That is a more practical collaboration model than another isolated chat interface, and the project is attracting substantial attention.",
+      "explanation": "OpenWork is aimed at the awkward middle ground between personal agent setups and centrally managed enterprise tooling. It bundles a desktop workspace, an admin layer, and a remote MCP server, so skills and integrations can follow a developer from one compatible client to another. Evaluate the permission model and hosted-service dependency before treating it as shared team infrastructure."
+    },
+    {
+      "slug": "holaos",
+      "name": "holaOS",
+      "url": "https://github.com/holaboss-ai/holaOS",
+      "tags": ["agent-workspace", "shared-memory", "self-hosted"],
+      "verdict": "worth-sharing",
+      "take": "holaOS packages multiple coding agents, files, a browser, tools, and shared memory into one local-first workspace. It can run its own agent or bring Claude Code and Codex into the same environment.",
+      "why": "It is worth watching because it makes a strong, concrete bet on agent interoperability: change the model or client without rebuilding all of the surrounding context. The project is new enough to scrutinize closely, but its rapid GitHub traction makes it an important signal.",
+      "explanation": "The appeal is operational rather than model-specific. holaOS treats the workspace, integrations, skills, and memory as the durable layer, with the agent as a replaceable worker. The open-source release uses a modified Apache 2.0 license, so teams should read the extra commercial-distribution and branding terms before adoption."
+    },
+    {
+      "slug": "semantica",
+      "name": "Semantica",
+      "url": "https://github.com/semantica-agi/semantica",
+      "tags": ["knowledge-graphs", "agent-governance", "provenance"],
+      "verdict": "must-watch",
+      "take": "Semantica is a self-hostable graph layer for AI systems that turns source data, context, and decisions into queryable knowledge graphs with provenance. It combines deterministic graph construction and reasoning with support for ontology and governance work.",
+      "why": "Many agent stacks can retrieve text but cannot clearly show why an action was taken. Semantica addresses that missing audit trail directly, which makes it especially relevant for teams working with regulated data or consequential automated decisions.",
+      "explanation": "Rather than replacing an LLM or vector store, Semantica sits underneath them as a structured context and decision layer. It supports RDF and labelled-property graphs, conflict detection, W3C PROV-O provenance, and exports for audits. Its scope is ambitious, so it is best approached first as infrastructure for a bounded, high-value workflow rather than a drop-in RAG replacement."
+    }
+  ]
+}
