@@ -1,0 +1,20 @@
+{
+  "date": "2026-08-10",
+  "items": [
+    {
+      "slug": "example-project",
+      "name": "Example Project",
+      "url": "https://github.com/example/example-project",
+      "image": "",
+      "tags": [
+        "example",
+        "cli"
+      ],
+      "verdict": "worth-testing",
+      "take": "Replace this with a one- or two-sentence description of what the project does.",
+      "why": "Replace this with why it's worth a look — the real signal, not a repeat of the take.",
+      "explanation": "Optional: a longer explanation for the detail page. Delete this field if you don't need it."
+    }
+
+  ]
+}
