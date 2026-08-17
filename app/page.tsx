@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getAllRadarItems } from "@/lib/radar";
+import RadarCard from "@/components/RadarCard";
 
 export default function Home() {
-  const latest = getAllRadarItems().slice(0, 3);
+  const latest = getAllRadarItems().slice(0, 8);
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-20">
@@ -36,19 +37,24 @@ export default function Home() {
 
       {latest.length > 0 && (
         <section className="mt-20">
-          <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
-            latest on radar
-          </h2>
-          <ul className="mt-4 divide-y divide-border border-t border-border">
+          <div className="flex items-center justify-between">
+            <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
+              latest on radar
+            </h2>
+            <Link
+              href="/radar"
+              className="font-mono text-xs text-accent transition-colors hover:text-foreground"
+            >
+              view all →
+            </Link>
+          </div>
+          <ul className="mt-4 space-y-4">
             {latest.map((item) => (
               <li key={item.slug}>
-                <Link
-                  href={`/radar/${item.slug}`}
-                  className="flex items-center justify-between gap-4 py-4 transition-colors hover:text-accent"
-                >
-                  <span>{item.name}</span>
-                  <span className="font-mono text-xs text-muted">{item.date}</span>
-                </Link>
+                <RadarCard
+                  item={item}
+                  tagHref={(tag) => `/radar?tag=${encodeURIComponent(tag)}`}
+                />
               </li>
             ))}
           </ul>

@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-17",
+  "items": [
+    {
+      "slug": "deepseek-harness",
+      "name": "DeepSeek Harness",
+      "url": "https://github.com/deepseek-ai/deepseek-harness",
+      "tags": ["agent-harness", "plugins", "typescript", "open-source"],
+      "verdict": "must-watch",
+      "category": "Agent framework",
+      "author": "DeepSeek AI",
+      "rating": 5,
+      "status": "trending",
+      "take": "DeepSeek Harness (dsh) is an MIT-licensed agent harness built on one radical rule: everything is a plugin — models, tools, skills, sessions, sandboxes, the agent loop, and even the UI. It boots with `npx @deepseek-ai/dsh web` and passed roughly 95,000 GitHub stars within two days of its developer-preview launch.",
+      "why": "The bet is that there should be no privileged core to patch. Every capability can be swapped or recomposed from configuration without forking the code, which is a genuinely different answer to agent design than the monolithic commercial harnesses — and the community reaction has been extraordinary.",
+      "explanation": "dsh runs on Cordis, a plugin kernel whose design is formalised in a paper on temporal and spatial composability: a component's side effects revert cleanly when it unloads, and plugins declare their dependencies reactively. Profiles and bundles stack these plugins at boot, an append-only session log makes every model-visible event reconstructable, and capability seams mean a remote sandbox can carry Bash, PTY, and LSP tools together. It is officially a developer preview with compatibility-breaking changes ahead, so treat it as a framework to evaluate now rather than production infrastructure — but the speed at which community plugins appeared suggests the model resonates."
+    },
+    {
+      "slug": "joyai-video-edit",
+      "name": "JoyAI-Video-Edit",
+      "url": "https://github.com/jd-opensource/JoyAI-Video-Edit",
+      "tags": ["video-editing", "diffusion", "realtime", "apache-2.0"],
+      "verdict": "worth-testing",
+      "category": "Video editing",
+      "author": "JD AI Research",
+      "rating": 4,
+      "status": "active",
+      "take": "JoyAI-Video-Edit is a real-time, instruction-guided video editor that processes frames causally as they arrive — no waiting for the full clip and no predefined length. JD's deployment benchmark reports 30 FPS at 720×1248, and a live demo released on Aug 15 shows streaming edits running on a single RTX PRO 6000.",
+      "why": "Most video AI is offline and batch — render, wait, review. Editing live or uploaded streams frame-by-frame changes the interaction model, so it is worth testing if you build video tooling, even though consumer GPU support is explicitly not there yet.",
+      "explanation": "The architecture pairs an MLLM condition encoder with a causal video VAE and an MMDiT backbone, combining autoregressive diffusion with bounded KV-state inference to keep per-chunk compute stable. It supports subject edits, local edits, background changes, style transfer, motion changes, and reference-guided editing. The weights and deployment code are Apache 2.0 with a technical report, but the demo's 16GB-class GPU requirement and the open TODO for consumer hardware keep this in worth-testing rather than must-watch territory."
+    },
+    {
+      "slug": "qwen38-27b",
+      "name": "Qwen3.8-27B",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "tags": ["open-weights", "multimodal", "apache-2.0", "local-ai"],
+      "verdict": "worth-testing",
+      "category": "Open model",
+      "author": "Alibaba Qwen",
+      "rating": 4,
+      "status": "active",
+      "take": "Qwen3.8-27B is Alibaba's dense 27-billion-parameter multimodal open-weights model under Apache 2.0, with native vision, a 262K-token context that scales toward 1M, and benchmarks that position it near frontier-level coding and office performance. The unquantized weights weigh about 55.6 GB.",
+      "why": "The dense 27B form factor is the notable part of this release: a genuinely capable text-plus-vision model you can run on a well-specced Mac or a single 80 GB GPU rather than a cluster, under a license that permits commercial use — exactly the open-weights signal that keeps the local-AI wave moving.",
+      "explanation": "Qwen3.8-27B uses a hybrid linear-attention design (Gated DeltaNet) that keeps the model compact while giving it long-context abilities, and it is released alongside the much larger Qwen3.8-2.4T-A95B. Text and images are handled natively, with a per-query thinking mode. Most people will not run the full BF16 weights, so plan on a community GGUF quant, and watch for a MoE sibling that could run faster on consumer hardware."
+    }
+  ]
+}

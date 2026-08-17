@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-16",
+  "items": [
+    {
+      "slug": "needle-2",
+      "name": "Needle 2",
+      "url": "https://github.com/cactus-compute/needle",
+      "tags": ["on-device-ai", "tool-calling", "edge"],
+      "verdict": "must-watch",
+      "category": "On-device model",
+      "author": "Cactus Compute",
+      "rating": 5,
+      "status": "trending",
+      "take": "Needle 2 is a 45M-parameter model built specifically for tool calling, device use, and structured extraction on tiny hardware. Its runtime and weights fit in a 14 MB binary, with an advertised full-session memory footprint of about 28 MB.",
+      "why": "This is a focused alternative to squeezing a general-purpose LLM onto every device. Constrained JSON output, confidence scores, and tool retrieval make the design practical for bounded automation where a larger cloud model would be unnecessary or unacceptable.",
+      "explanation": "Needle is intentionally narrow: it turns tool descriptions into grammar-constrained calls and can escalate when its calibrated confidence falls below a threshold. That makes it interesting for appliances, wearables, and offline workflows, although teams should validate its benchmark claims against their own schemas and error cases before relying on it for consequential actions."
+    },
+    {
+      "slug": "soup",
+      "name": "Soup",
+      "url": "https://github.com/MakazhanAlpamys/Soup",
+      "tags": ["fine-tuning", "local-llm", "training"],
+      "verdict": "worth-testing",
+      "category": "CLI tool",
+      "author": "Makazhan Alpamys",
+      "rating": 4,
+      "status": "trending",
+      "take": "Soup is a CLI for fine-tuning and post-training LLMs from a small YAML configuration. Its experimental layer-streaming mode moves frozen layers through limited VRAM, aiming to make an 8B-model LoRA run possible on a 4 GB laptop GPU.",
+      "why": "The project attacks a real adoption barrier: fine-tuning workflows often demand more GPU memory and operational work than the experiment itself. A reproducible local path is valuable for practitioners who want to iterate without renting a cloud machine for every run.",
+      "explanation": "Soup provides templates, GPU detection, quantization, evaluation gates, and local QLoRA workflows behind a simpler interface. Its low-VRAM streaming path is opt-in and labelled beta, so start with a small, testable dataset and compare quality and throughput with a conventional run rather than assuming the memory saving is free."
+    },
+    {
+      "slug": "ego-lite",
+      "name": "ego lite",
+      "url": "https://github.com/citrolabs/ego-lite",
+      "tags": ["browser-automation", "agents", "macos"],
+      "verdict": "interesting",
+      "category": "Agent browser",
+      "author": "Citro Labs",
+      "rating": 3,
+      "status": "trending",
+      "take": "ego lite is a macOS browser designed for people and coding agents to work in parallel. Each agent task runs in its own browser Space while the user keeps control of their existing tabs, and agents access pages through an `ego-browser` skill.",
+      "why": "Browser automation usually means a throwaway browser profile or competition for the same visible tabs. Dedicated agent spaces are a sensible product-level answer, especially for research and repetitive web tasks that benefit from parallel execution.",
+      "explanation": "The setup can migrate Chrome data so an agent can work with existing logins, cookies, extensions, and bookmarks; that power warrants caution. Treat it as a convenience tool for trusted, narrowly scoped workflows, review every action that can change external state, and avoid granting it broad access to sensitive accounts."
+    }
+  ]
+}

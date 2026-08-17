@@ -14,6 +14,12 @@ Telegram: "follow docs/radar-task.md and run today's radar") to run it.
    - explanation (optional): a longer note for the detail page
    - tags: 2-4 short tags
    - verdict: must-watch / worth-testing / worth-sharing / interesting / skip
+   - category: a short type label, e.g. "CLI Tool", "Library", "Framework"
+   - author (optional, if known): the project author/org
+   - rating (optional): your own 1-5 confidence score
+   - status (optional): active / archived / trending
+   - image (optional): leave unset for github.com urls — the site falls
+     back to GitHub's own OG image automatically
 4. Create today's file at content/radar/YYYY-MM-DD.json (real date) using
    the schema in AGENTS.md. Slugs must be unique across every day file —
    check existing files under content/radar/ first.

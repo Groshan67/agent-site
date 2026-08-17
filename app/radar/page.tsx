@@ -1,9 +1,14 @@
-import Link from "next/link";
 import { getAllRadarItems } from "@/lib/radar";
+import RadarSearch from "@/components/RadarSearch";
 
 export const metadata = { title: "Radar" };
 
-export default function RadarPage() {
+export default async function RadarPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tag?: string }>;
+}) {
+  const { tag } = await searchParams;
   const items = getAllRadarItems();
 
   return (
@@ -13,35 +18,9 @@ export default function RadarPage() {
         AI &amp; open-source projects worth your time, added daily.
       </p>
 
-      <ul className="mt-10 space-y-4">
-        {items.map((item) => (
-          <li key={item.slug}>
-            <Link
-              href={`/radar/${item.slug}`}
-              className="block rounded-lg border border-border bg-card p-5 transition-colors hover:border-accent"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="font-medium text-foreground">{item.name}</h2>
-                <span className="font-mono text-xs text-muted">{item.date}</span>
-              </div>
-              <p className="mt-2 text-sm text-muted">{item.take}</p>
-              {item.tags && item.tags.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2 font-mono text-xs text-accent">
-                  {item.tags.map((tag) => (
-                    <span key={tag}>#{tag}</span>
-                  ))}
-                </div>
-              )}
-            </Link>
-          </li>
-        ))}
-        {items.length === 0 && (
-          <p className="text-sm text-muted">
-            Nothing here yet — add a day file under{" "}
-            <code className="font-mono text-accent">content/radar/</code>.
-          </p>
-        )}
-      </ul>
+      <div className="mt-8">
+        <RadarSearch items={items} initialTag={tag} />
+      </div>
     </div>
   );
 }

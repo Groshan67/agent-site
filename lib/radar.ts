@@ -1,27 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { RadarItem } from "./radar-helpers";
+
+export type { RadarItem, RadarVerdict } from "./radar-helpers";
+export { getCloneCommand, getRadarImage } from "./radar-helpers";
 
 const RADAR_DIR = path.join(process.cwd(), "content", "radar");
-
-export type RadarVerdict =
-  | "must-watch"
-  | "worth-testing"
-  | "worth-sharing"
-  | "interesting"
-  | "skip";
-
-export interface RadarItem {
-  slug: string;
-  name: string;
-  url: string;
-  image?: string;
-  tags?: string[];
-  verdict?: RadarVerdict;
-  take: string;
-  why: string;
-  explanation?: string;
-  date: string;
-}
 
 interface RadarDayFile {
   date: string;
@@ -45,4 +29,11 @@ export function getAllRadarItems(): RadarItem[] {
 
 export function getRadarItemBySlug(slug: string): RadarItem | undefined {
   return getAllRadarItems().find((item) => item.slug === slug);
+}
+
+/** Every distinct tag across all items, for building filter UIs. */
+export function getAllRadarTags(items: RadarItem[]): string[] {
+  const tags = new Set<string>();
+  items.forEach((item) => item.tags?.forEach((t) => tags.add(t)));
+  return Array.from(tags).sort();
 }

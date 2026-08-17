@@ -1,17 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import type { PromptItem } from "./prompts-helpers";
+
+export type { PromptItem, PromptMedia } from "./prompts-helpers";
 
 const PROMPTS_DIR = path.join(process.cwd(), "content", "prompts");
-
-export interface PromptItem {
-  slug: string;
-  title: string;
-  tags?: string[];
-  sourceUrl?: string;
-  date: string;
-  body: string;
-}
 
 /** Reads every content/prompts/*.md file (skipping _-prefixed files), newest first. */
 export function getAllPrompts(): PromptItem[] {
@@ -33,6 +27,10 @@ export function getAllPrompts(): PromptItem[] {
       sourceUrl: data.sourceUrl,
       date: data.date ?? "",
       body: content.trim(),
+      media: data.media,
+      tweetUrl: data.tweetUrl,
+      author: data.author,
+      tweetId: data.tweetId,
     };
   });
 
@@ -41,4 +39,13 @@ export function getAllPrompts(): PromptItem[] {
 
 export function getPromptBySlug(slug: string): PromptItem | undefined {
   return getAllPrompts().find((p) => p.slug === slug);
+}
+
+/** Tweet ids already imported, so the fetch script can skip duplicates. */
+export function getKnownTweetIds(): Set<string> {
+  return new Set(
+    getAllPrompts()
+      .map((p) => p.tweetId)
+      .filter((id): id is string => Boolean(id)),
+  );
 }
