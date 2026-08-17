@@ -53,8 +53,8 @@ export default function RadarSearch({
       )}
 
       <ul className="mt-6 space-y-4">
-        {filtered.map((item) => (
-          <li key={item.slug}>
+        {filtered.map((item,index) => (
+          <li key={`${item.slug}-${index}`}>
             <RadarCard item={item} onTagClick={setActiveTag} />
           </li>
         ))}
