@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-18",
+  "items": [
+    {
+      "slug": "strix-ai-pentest",
+      "name": "Strix",
+      "url": "https://github.com/usestrix/strix",
+      "tags": ["ai-pentesting", "security", "agent", "apache-2.0"],
+      "verdict": "must-watch",
+      "category": "Security tool",
+      "author": "Strix (usestrix)",
+      "rating": 5,
+      "status": "trending",
+      "take": "Strix is an open-source AI penetration-testing tool: autonomous agents that run your app's code dynamically, find vulnerabilities, and validate fixes, with GitHub Actions/CI integration so scans can block insecure code on every pull request.",
+      "why": "It's the fastest-moving security project on GitHub right now — roughly 1,400 stars in the past two days — because it turns pentesting from a manual expert task into something a CI pipeline can run automatically, an AI agent doing dynamic analysis rather than just reading code.",
+      "explanation": "Strix agents behave like real hackers: they execute the application, probe endpoints, and attempt real exploitation paths instead of only doing static analysis. The project ships as a Python package (strix-agent) with an optional hosted plane at app.strix.ai, and the new CI/CD mode blocks insecure code before it reaches production. It's Apache 2.0. Because it's autonomous and runs against live apps, adopters should treat it with the same care as any pentest tool — scoped targets, isolated environments, and review of what the agent is permitted to touch."
+    },
+    {
+      "slug": "openviking",
+      "name": "OpenViking",
+      "url": "https://github.com/volcengine/OpenViking",
+      "tags": ["agent-memory", "rag", "context-database", "agpl-3.0"],
+      "verdict": "worth-testing",
+      "category": "Agent infrastructure",
+      "author": "Volcengine (ByteDance)",
+      "rating": 4,
+      "status": "trending",
+      "take": "OpenViking is Volcengine's context database for AI agents: memories, knowledge, and skills live in one virtual filesystem under the viking:// protocol, so an agent explores its own context with ls, tree, and find instead of querying a black-box vector store.",
+      "why": "Agent memory is one of the messiest unsolved problems in today's agent stacks, and this is an unusually opinionated take — giving the agent a filesystem it can browse like a human rather than a vector store it must query. It went from a January repo to 29k stars and was among today's fastest movers.",
+      "explanation": "OpenViking organizes context into three tiers — memory, resources, skills — exposed through one unified filesystem protocol. The practical payoff: an agent can self-verify what it knows, pull relevant RAG content on demand, and reuse skills the same way it navigates files, without bespoke retrieval plumbing per application. It's AGPL-3.0, which is fine for self-hosting but worth flagging before embedding it in a proprietary product, and it's still early enough that APIs may shift."
+    },
+    {
+      "slug": "cli-anything",
+      "name": "CLI-Anything",
+      "url": "https://github.com/HKUDS/CLI-Anything",
+      "tags": ["agent-tooling", "cli", "ai-agents", "apache-2.0"],
+      "verdict": "worth-testing",
+      "category": "Dev tool",
+      "author": "HKUDS (HKU Data Science Lab)",
+      "rating": 4,
+      "status": "active",
+      "take": "CLI-Anything turns any software into an agent-usable CLI, auto-generating the harness so AI agents can operate apps that were never built for them — CAD, 3D scenes, diagrams, games — with a central CLI-Hub for installing community-built wrappers.",
+      "why": "Most tooling tries to teach agents new APIs; this gives agents a universal interface to existing software instead. The lab reports 2,461 passing tests and an 18-app demo set, and it picked up roughly 500 stars over the weekend — real appetite for agent-native access to the long tail of desktop tools.",
+      "explanation": "The core idea is that tomorrow's users are agents, so every application should expose a stable, scriptable interface. CLI-Anything generates those interfaces, and the bundled CLI-Hub (pip install cli-anything-hub, then cli-hub install <name>) makes them shareable, with an arXiv tech report to back the approach. It's Apache 2.0 and genuinely open; the main caveats are that quality varies per generated CLI and conventions are young enough to still evolve."
+    }
+  ]
+}

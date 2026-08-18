@@ -53,6 +53,10 @@ unique `slug`, then run `npm run build` to confirm it compiles.
 
 To add a Prompt: add a new `content/prompts/<slug>.md` file with frontmatter.
 
+`scripts/trigger-radar.sh` / `.ps1` send the daily radar-task trigger message
+to the Telegram bot on a cron/Task Scheduler schedule — see README for setup.
+They just call the Telegram API; they don't talk to OpenDray directly.
+
 Design tokens live in `app/globals.css` (`--background`, `--foreground`,
 `--card`, `--border`, `--muted`, `--accent`). Reuse them instead of
 introducing new colors.

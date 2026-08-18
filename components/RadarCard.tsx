@@ -14,7 +14,7 @@ export default function RadarCard({
   onTagClick?: (tag: string) => void;
 }) {
   const image = getRadarImage(item);
-  
+
   return (
     <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-card sm:flex-row">
       <div className="relative aspect-video w-full shrink-0 bg-background sm:aspect-auto sm:w-[35%]">
@@ -22,7 +22,7 @@ export default function RadarCard({
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={image}
-            alt=""            
+            alt=""
             className="absolute inset-0 m-auto h-auto w-auto max-h-full max-w-full object-contain"
             loading="lazy"
           />
@@ -41,11 +41,8 @@ export default function RadarCard({
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-medium text-foreground">{item.name}</h3>
-          {item.rating !== undefined && (
-            <span className="flex shrink-0 items-center gap-1 font-mono text-xs text-accent">
-              <IconStar /> {item.rating}
-            </span>
-          )}
+          {item.rating !== undefined && <StarRating rating={item.rating} />}
+
         </div>
 
         <p className="text-sm text-muted">{item.take}</p>
@@ -95,9 +92,30 @@ export default function RadarCard({
   );
 }
 
-function IconStar() {
+
+function StarRating({ rating, max = 5 }: { rating: number; max?: number }) {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+    <span
+      className="flex shrink-0 items-center gap-0.5"
+      dir="ltr"
+      aria-label={`Rate ${rating} as ${max}`}
+    >
+      {Array.from({ length: max }, (_, i) => (
+        <IconStar key={i} filled={i < Math.round(rating)} />
+      ))}
+    </span>
+  );
+}
+
+function IconStar({ filled }: { filled: boolean }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={filled ? "text-amber-400" : "text-muted-foreground/30"}
+    >
       <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.2l7.1-.6z" />
     </svg>
   );

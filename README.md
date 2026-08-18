@@ -83,6 +83,8 @@ node scripts/fetch-x-prompts.mjs --all   # skip the AI-keyword filter
 Your X app needs the `bookmark.read`, `tweet.read`, `users.read`, and
 `offline.access` scopes, OAuth 2.0 enabled, and `http://127.0.0.1:8787/callback`
 registered as a callback URL. `x-tokens.json` is gitignored — never commit it.
+This path is parked for now — the default way to add prompts is sending a
+post URL to the Telegram bot; see `docs/prompts-task.md`.
 
 **Prompts** — add `content/prompts/<slug>.md`:
 
@@ -97,11 +99,37 @@ date: "2026-08-11"
 The prompt text itself.
 ```
 
+## Running the Radar loop on a schedule
+
+`docs/radar-task.md` is the daily job — but something still has to kick it
+off. `scripts/trigger-radar.sh` (Linux/macOS/WSL2) and
+`scripts/trigger-radar.ps1` (Windows) send that day's trigger message to
+your Telegram bot automatically, the same way you'd type it by hand, so
+the run still shows up in Telegram and OpenDray like any manual trigger.
+
+1. Get your chat id once: message the bot anything, then
+   `curl "https://api.telegram.org/bot<TOKEN>/getUpdates"` and read
+   `message.chat.id` from the response.
+2. Test it manually:
+   `TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... ./scripts/trigger-radar.sh`
+3. Schedule it:
+   - Linux/macOS/WSL2 — `crontab -e`, add a line like
+     `0 8 * * * TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... /path/to/agent-site/scripts/trigger-radar.sh >> /tmp/trigger-radar.log 2>&1`
+   - Windows (native) — Task Scheduler → create a basic task, daily
+     trigger, action = start a program: `powershell.exe`, arguments
+     `-File "C:\path\to\agent-site\scripts\trigger-radar.ps1"` (set
+     `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` as system environment
+     variables first, or add them inline in the action).
+
+Same pattern works for Prompts discovery (`docs/prompts-task.md`, option B)
+— copy the script, change the message.
+
 ## What's next
 
-This is the skeleton phase only — no agent, no automation loop yet, and the
-copy on the home page is a placeholder for you to rewrite. See `AGENTS.md`
-for the content conventions an agent (or a future you) should follow.
+Radar and Prompts both have working agent tasks and can run on a schedule
+(see above). From here it's mostly content and polish — personalize the
+home page copy, and decide if/when the parked X-API path in
+`docs/prompts-task.md` is worth revisiting.
 
 ## Deploying
 

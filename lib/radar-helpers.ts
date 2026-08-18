@@ -42,6 +42,7 @@ export function getRadarImage(item: RadarItem): string | undefined {
   if (item.image) return item.image;
   const match = item.url.match(/^https?:\/\/github\.com\/([^/]+)\/([^/]+)\/?$/);
   if (!match) return undefined;
-  const [, owner, repo] = match;
+  const [, owner, repo] = match;  
   return `https://opengraph.githubassets.com/1/${owner}/${repo}`;
+  
 }
