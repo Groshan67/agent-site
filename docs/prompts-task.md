@@ -10,21 +10,31 @@ anywhere), for each URL:
 1. Fetch the public page at that URL — no login needed, it's a public
    post page (unless the account is protected, in which case skip it and
    say so).
-2. Extract: the post text, hashtags, the author's handle, the post date,
-   and any image or video URL visible in the page. If you can't get a
-   working direct media URL, that's fine — leave `media` unset, the card
-   falls back gracefully.
-3. Check content/prompts/ for a file with the same `tweetId` — skip if
+2. Extract: the post text, hashtags, the author's handle, and the post
+   date.
+3. For media specifically — X's post pages are JS-heavy, so a plain fetch
+   often won't show images/video in the visible content even when the
+   tweet clearly has them. Before giving up, check the page's raw HTML
+   `<head>` for OpenGraph tags: `og:image` (and `og:image:1`, `og:image:2`,
+   `:3` if present, for multi-photo tweets) and `og:video`/`og:video:url`.
+   These are usually present even when the rendered page isn't. Collect
+   every image/video url you can confirm into a `media` array — a tweet
+   can have several photos, or one video; grab all of them, not just the
+   first. If you still can't get any working media url after checking OG
+   tags, say so explicitly in your reply instead of silently continuing —
+   don't just omit `media` without mentioning it.
+4. Check content/prompts/ for a file with the same `tweetId` — skip if
    it's already there.
-4. Write `content/prompts/<slug>.md`: frontmatter `title` (first ~80
+5. Write `content/prompts/<slug>.md`: frontmatter `title` (first ~80
    chars of the text), `tags` (the hashtags), `date`, `author` (handle,
    no @), `tweetUrl` (the url you were given), `tweetId` (the numeric id
-   from the url), `media` (optional — `{url, type: "image"|"video"}`).
-   Body: the full post text, written as-is (don't paraphrase someone
-   else's prompt).
-5. Run `npm run build`. Fix anything that fails. Commit
+   from the url), `media` (a list — `[{url, type: "image"|"video"}, ...]`,
+   omit the key entirely if none found). Body: the full post text, written
+   as-is (don't paraphrase someone else's prompt).
+6. Run `npm run build`. Fix anything that fails. Commit
    ("prompts: <slug>"), push.
-6. Reply with what got added.
+7. Reply with what got added, and flag anything (like missing media) that
+   needs a second look.
 
 ## B) Proactive discovery (optional, like Radar)
 

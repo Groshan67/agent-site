@@ -30,3 +30,35 @@ body {
   background: var(--accent);
   color: var(--background);
 }
+
+/*
+  Language-aware typography for paragraphs.
+  - When a <p> has lang="fa" (or fa-IR) or lang="ar" we apply Lalezar and RTL styles.
+  - SmartP component sets lang/dir automatically based on content; these CSS rules apply the visual changes globally so individual components don't need inline font styles.
+*/
+
+p:lang(fa),
+p:lang(fa-IR),
+p:lang(ar),
+p:lang(ur) {
+  /* Use the CSS variable injected by next/font (layout.tsx). Provide a fallback name if the variable isn't present. */
+  font-family: var(--font-vazirmatn, 'Vazirmatn'), ui-sans-serif, system-ui, sans-serif;
+  direction: rtl;
+  text-align: justify;
+  font-size: 1.125rem; 
+  font-weight: 400;
+  
+}
+
+/* If dir is set explicitly on any element, adjust alignment accordingly */
+p[dir="rtl"] {
+  text-align: justify;
+}
+p[dir="ltr"] {
+  text-align: left;
+}
+
+/* Utility class if you want to force Lalezar on arbitrary elements */
+.vazirmatn {
+  font-family: var(--font-vazirmatn, 'Vazirmatn'), ui-sans-serif, system-ui, sans-serif;
+}

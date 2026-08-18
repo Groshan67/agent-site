@@ -27,7 +27,13 @@ export function getAllPrompts(): PromptItem[] {
       sourceUrl: data.sourceUrl,
       date: data.date ?? "",
       body: content.trim(),
-      media: data.media,
+      // Accept either the current array form or a single old-style object,
+      // so nothing written before this change breaks.
+      media: Array.isArray(data.media)
+        ? data.media
+        : data.media
+          ? [data.media]
+          : undefined,
       tweetUrl: data.tweetUrl,
       author: data.author,
       tweetId: data.tweetId,

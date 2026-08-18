@@ -26,16 +26,24 @@ This site has two content types stored as flat files, not a database:
   `app/radar/page.tsx` (list + search), `app/radar/[slug]/page.tsx` (detail).
 - **Prompts** (`content/prompts/*.md`) — one Markdown file per prompt, with
   YAML frontmatter (`title`, `tags`, `sourceUrl`, `date`, and optionally
-  `media` (`{url, type: "image"|"video"}`), `tweetUrl`, `author`, `tweetId`)
-  and the prompt text as the body. Files starting with `_` are ignored.
-  Types: `lib/prompts-helpers.ts` (client-safe). Fs-backed loader:
-  `lib/prompts.ts` — same client/server split as Radar, don't import it from
-  a Client Component. Card UI: `components/PromptCard.tsx` (magazine-style,
-  media-first, 3-column grid on `app/prompts/page.tsx`). Routes:
-  `app/prompts/page.tsx` (grid), `app/prompts/[slug]/page.tsx` (detail).
+  `media` — a list, `[{url, type: "image"|"video"}, ...]`, 0 to many —
+  `tweetUrl`, `author`, `tweetId`) and the prompt text as the body. Files
+  starting with `_` are ignored. Types: `lib/prompts-helpers.ts`
+  (client-safe). Fs-backed loader: `lib/prompts.ts` — same client/server
+  split as Radar, don't import it from a Client Component; it also accepts
+  a single old-style `media` object for files written before this was a
+  list, so nothing already committed breaks. Card UI:
+  `components/PromptCard.tsx` (magazine-style, media-first with a
+  next/prev carousel when an item has more than one image/video). Grid +
+  search/sort: `components/PromptsExplorer.tsx` (client — text search,
+  Newest/Alphabetical sort, both staged until "Apply", plus tag-click
+  filtering). Routes: `app/prompts/page.tsx` (grid), `app/prompts/[slug]/page.tsx`
+  (detail, shows every media item in a grid rather than a carousel).
   Primary way to populate this now: `docs/prompts-task.md` (agent fetches
-  public post URLs it's given — no login, no paid API). `scripts/x-auth.mjs`
-  and `scripts/fetch-x-prompts.mjs` are a parked, optional path using the
+  public post URLs it's given — no login, no paid API; instructs it to
+  check OG meta tags for media, since a plain fetch of X's JS-heavy pages
+  often misses images otherwise). `scripts/x-auth.mjs` and
+  `scripts/fetch-x-prompts.mjs` are a parked, optional path using the
   official paid X API if that ever makes sense — not the default. Never use
   a library that logs into X with real account credentials (twikit and
   similar) — against X's terms, risks the account.

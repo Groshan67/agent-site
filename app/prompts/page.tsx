@@ -1,5 +1,5 @@
 import { getAllPrompts } from "@/lib/prompts";
-import PromptCard from "@/components/PromptCard";
+import PromptsExplorer from "@/components/PromptsExplorer";
 
 export const metadata = { title: "Prompts" };
 
@@ -14,18 +14,9 @@ export default function PromptsPage() {
         curated finds.
       </p>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {prompts.map((prompt) => (
-          <PromptCard key={prompt.slug} item={prompt} />
-        ))}
+      <div className="mt-8">
+        <PromptsExplorer items={prompts} />
       </div>
-
-      {prompts.length === 0 && (
-        <p className="mt-10 text-sm text-muted">
-          Nothing here yet — add a file under{" "}
-          <code className="font-mono text-accent">content/prompts/</code>.
-        </p>
-      )}
     </div>
   );
 }

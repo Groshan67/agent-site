@@ -14,7 +14,7 @@ export interface PromptItem {
   sourceUrl?: string;
   date: string;
   body: string;
-  media?: PromptMedia;
+  media?: PromptMedia[]; // 0, 1, or many (X posts can carry up to 4 images)
   tweetUrl?: string;
   author?: string; // X handle, without the @
   tweetId?: string; // used by scripts/fetch-x-prompts.mjs to avoid duplicates
