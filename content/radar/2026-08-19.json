@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-19",
+  "items": [
+    {
+      "slug": "ai-memory",
+      "name": "ai-memory",
+      "url": "https://github.com/akitaonrails/ai-memory",
+      "tags": ["agent-memory", "agent-handoff", "coding-agents", "rust"],
+      "verdict": "worth-testing",
+      "category": "Agent infrastructure",
+      "author": "Fabio Akita (akitaonrails)",
+      "rating": 4,
+      "status": "trending",
+      "take": "ai-memory is a long-term memory server for AI coding agents, written in Rust: lifecycle hooks in Claude Code, Codex, OpenCode, Cursor and roughly twenty other agent CLIs capture what a session did, compile it into a git-versioned markdown wiki, and hand the next agent a typed \"where you left off\" brief.",
+      "why": "It's on today's GitHub trending because it tackles the most annoying real-world agent problem there is — quit Claude Code mid-task, start Codex hours later, and re-explain the whole architecture from scratch. No vector database to babysit and no write_note ceremony: the memory is grep-able markdown you already own, and it's an MIT-licensed, actively pushed Rust project rather than a wrapper around a service.",
+      "explanation": "The design is deliberately boring and that's the point: a lifecycle hook per agent CLIs (Claude Code, Codex, OpenCode, Cursor, Gemini CLI, Kimi Code, Devin CLI and more) fires-and-forgets sanitized observations; at session end they're consolidated into wiki pages with supersession chains; a SessionStart hook injects a bounded handoff into the next session. The wiki lives in a plain markdown repo you can open in Obsidian, back up with rsync, and grep. A zero-LLM mode still gives FTS5 + entity/graph search, with an optional LLM only when you want auto-consolidation, contradiction-linting, and auto-improvement proposals. The main caveat is that it's young enough that APIs and config will keep shifting, and you're trusting a hook layer that sees your prompts — fine on a loopback-only single-machine setup, think twice before exposing it without the bearer-token auth."
+    },
+    {
+      "slug": "openlogi",
+      "name": "OpenLogi",
+      "url": "https://github.com/AprilNEA/OpenLogi",
+      "tags": ["rust", "local-first", "hid++", "desktop-tool"],
+      "verdict": "worth-testing",
+      "category": "Desktop tool",
+      "author": "AprilNEA",
+      "rating": 4,
+      "status": "trending",
+      "take": "OpenLogi is a native, local-first alternative to Logitech's Options+ software, written in Rust: it remaps buttons, sets DPI presets and toggles SmartShift by driving the mouse directly over HID++ — no account, no telemetry, and bindings stored in a plain TOML file you own.",
+      "why": "It hit the Hacker News front page today at ~870 points with 240+ comments because it kills a widely hated piece of vendor software with an open, cross-platform replacement (Bolt/Unifying/Lightspeed/Bluetooth/wired, macOS/Linux/Windows, MIT/Apache-2.0) and already sits at ~9.5k stars, with a signed Windows port just landed.",
+      "explanation": "Rather than a config dumper, OpenLogi is an interactive configurator: click any hotspot on a rendered mouse diagram and bind any of 44 built-in actions, DPI cycles, SmartShift thresholds — each change written straight to the sensor over the HID++ protocol. Device renders are fetched from a CDN; bindings and profiles never leave the machine, and the update check is opt-in and off by default. The discussion around it is worth reading too: reviewers are split on whether the polished, partly AI-written landing page signals good maintenance or a vibe-coded project, which is the current trust conversation in OSS in miniature. Practically, it can't run at the same time as Options+ or Solaar (only one app can own a receiver), so it's an either/or for anyone on those tools."
+    },
+    {
+      "slug": "security-skills-library",
+      "name": "Anthropic Cybersecurity Skills",
+      "url": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+      "tags": ["ai-agents", "cybersecurity", "skills", "mitre-attack"],
+      "verdict": "worth-testing",
+      "category": "Skills library",
+      "author": "Mahipal Jangra (mukul975)",
+      "rating": 4,
+      "status": "trending",
+      "take": "A community-built library (not affiliated with Anthropic) of 817 structured cybersecurity skills for AI agents across 29 domains, each matching the agentskills.io standard with YAML frontmatter so agents can self-select — from memory forensics with Volatility3 to cloud breach scoping — mapped to six frameworks (MITRE ATT&CK, NIST CSF 2.0, ATLAS, D3FEND, NIST AI RMF, MITRE F3).",
+      "why": "It's on GitHub trending today at nearly 30k stars because it tackles the real gap in security agents: today's models can write code, but they don't know which Sigma rule catches Kerberoasting or which plugin to run on a memory dump. Progressive disclosure keeps each skill ~30 tokens to scan, so an agent can index all 817 in one pass without blowing its context window.",
+      "explanation": "Each skill follows the same anatomy — When to Use, Prerequisites, Workflow, Verification — plus optional reference files and helper scripts, so it encodes the decision path of a senior analyst rather than a checklist of commands. It installs with a one-liner (npx skills add mukul975/Anthropic-Cybersecurity-Skills) into Claude Code, Copilot, Codex CLI, Cursor, Gemini CLI and any agentskills.io-compatible platform; every ATT&CK mapping is validated against v19.1 with the official mitreattack-python library. Two flags: the offensive-technique content is explicitly for authorized testing only (dual-use), and the project is Apache-2.0 with an active contributor base but still young enough that skill quality across 817 entries is uneven in places."
+    }
+  ]
+}
