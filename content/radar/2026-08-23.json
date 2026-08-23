@@ -42,6 +42,48 @@
       "take": "A local-first AI job search command center that scans portals, scores listings A–F, tailors ATS-optimized CVs and cover letters per role, tracks applications, and researches companies — all running inside your existing AI CLI (Claude Code, Codex, etc.) with no cloud dependency.",
       "why": "It gained ~920 stars in a day at ~67.5k total because it solves a real, painful workflow: job hunting is high-volume, repetitive, and privacy-sensitive, and existing tools either spam applications or require uploading your career data to a SaaS.",
       "explanation": "The tool installs as an agent skill and uses your local LLM to parse job descriptions, match against your experience, generate tailored documents, and maintain a local application tracker. Scoring uses a transparent rubric (role fit, compensation signal, company health, etc.) rather than a black-box model. It's MIT-licensed and runs entirely locally, so credentials and personal data never leave your machine. The main caveat is that portal scraping selectors can break when sites redesign, so expect periodic maintenance."
+    },
+    {
+      "slug": "zetta-embodiment",
+      "name": "Zetta",
+      "url": "https://github.com/air-embodied-brain/Zetta-Embodiment",
+      "tags": ["embodied-ai", "robotics", "self-improvement", "runtime-critics"],
+      "verdict": "must-watch",
+      "category": "Embodied AI",
+      "author": "air-embodied-brain (Tsinghua AIR)",
+      "rating": 5,
+      "status": "trending",
+      "take": "Zetta is a closed-loop embodied harness that evolves code-based runtime critics and recovery skills online while keeping the base policy frozen, achieving 90.8% on LIBERO-Pro and 93.6% on RoboCasa with an 11.1x inference speedup.",
+      "why": "It represents a fundamental shift in embodied AI — instead of training massive end-to-end policies, it keeps the base model frozen and learns self-correcting critics and recovery skills at runtime, delivering SOTA results with dramatically less compute.",
+      "explanation": "Zetta operates on three timescale-separated loops: action-frequency critics that govern execution in real time, rollout-level critic/recovery proposals, and validation-gated skill updates that distill verified failures into reusable skills. The accompanying Z-Infra rollout layer decouples agent logic from heterogeneous hardware (CPUs, GPUs, simulators), scaling valid rollout throughput 20.6x on 8×A100 GPUs. Learned skills transfer zero-shot across tasks, and clear robotic \"Aha Moments\" emerge where the agent discovers novel recovery behaviors. The paper (arXiv:2608.16590) and code are fully open; the AGPL-3.0 license is worth noting for commercial embedding."
+    },
+    {
+      "slug": "spade-self-play",
+      "name": "SPADE",
+      "url": "https://github.com/spade-rl/spade",
+      "tags": ["self-play", "adaptive-environments", "llm-training", "open-ended-learning"],
+      "verdict": "must-watch",
+      "category": "LLM training",
+      "author": "spade-rl (UW, Stanford, CMU, MIT, NUS, SNU, UChicago)",
+      "rating": 5,
+      "status": "trending",
+      "take": "SPADE (Self-Play in Adaptive Synthetic Executable Environments) makes environment design itself a learnable component: a designer agent generates progressively harder interactive environments as executable Python while a solver agent improves on held-out math, science, code, and reasoning benchmarks past the saturation point of fixed-environment baselines.",
+      "why": "It introduces a genuinely new self-improvement loop where the environment adapts to the agent's growing capabilities, breaking the plateau that plagues fixed-curriculum approaches — the paper shows consistent gains on Qwen3 models at 4B, 8B, and 30B-A3B scales across cognitive games and multi-turn tool use.",
+      "explanation": "A single shared policy plays both roles via role-specific prompts. The Environment Designer samples grounding context from a 15k-document math/science corpus and an accumulated environment memory, then writes complete executable environments with Gym-style reset()/step() interfaces and privileged hints. The Reasoning Agent plays each environment with and without the hint; the gap in return (hint-based regret) trains the designer to target environments at the agent's capability frontier. Training uses GRPO with Slime/SGLang (SGLang inference, Megatron-LM updates, Ray orchestration) and a Tinker backend. Checkpoints, the static GPT-5.5 environment corpus (7,872 validated environments), and all training recipes are released on Hugging Face. MIT-licensed."
+    },
+    {
+      "slug": "autolith-lisp-agent",
+      "name": "Autolith",
+      "url": "https://github.com/luciusmagn/autolith",
+      "tags": ["common-lisp", "live-programming", "self-modifying-agents", "repl-driven"],
+      "verdict": "worth-testing",
+      "category": "Agent framework",
+      "author": "luciusmagn",
+      "rating": 4,
+      "status": "trending",
+      "take": "Autolith is a programming agent with a live Common Lisp runtime that can directly inspect, modify, and evolve its own code image — using SBCL's introspection and the Lisp image paradigm for true self-modifying agent loops rather than file-based tool calls.",
+      "why": "It's a radically different agent architecture: the agent lives inside a running Lisp image, giving it native access to all symbols, REPL-driven development, and the ability to checkpoint/restore entire cognitive states — something file-based agents fundamentally cannot do.",
+      "explanation": "Autolith runs entirely inside an SBCL image on Linux x86-64 (macOS arm64 via Nix), with a pinned binary release that includes its own SBCL, Lisp dependencies, and a bubblewrap sandbox helper. It talks directly to Codex and Grok subscription APIs (no CLI wrapper). The agent owns its model loop, tools, conversations, authentication, live mutation with private commits, checkpoints, and a pristine recovery image it can reload into if things go wrong. Nix is the recommended install path (nix run github:luciusmagn/autolith). MIT-licensed. The tradeoff: model-generated Lisp runs with your user privileges, so it's a development agent, not a security sandbox."
     }
   ]
 }
