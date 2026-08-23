@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-23",
+  "items": [
+    {
+      "slug": "mattpocock-skills",
+      "name": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "tags": ["agent-skills", "engineering-workflows", "tdd", "code-review"],
+      "verdict": "must-watch",
+      "category": "Agent skills",
+      "author": "Matt Pocock",
+      "rating": 5,
+      "status": "trending",
+      "take": "A curated collection of composable engineering skills for AI coding agents — TDD, architecture improvement, code review, bug diagnosis, domain modeling, and requirements grilling — installable via the skills CLI into any compatible agent.",
+      "why": "It hit ~3,360 stars in a single day because it turns ad-hoc agent prompting into disciplined, reusable workflows that embed engineering best practices directly into how agents operate.",
+      "explanation": "Each skill is a prompt + process pack with explicit When to Use, Prerequisites, Workflow, and Verification sections, so agents follow the same decision path a senior engineer would rather than guessing. The collection covers the full development lifecycle and installs with one command (npx skills add mattpocock/skills) into Claude Code, Codex, Cursor, and other agentskills.io-compatible tools. The project is MIT-licensed and explicitly designed as a community standard rather than a vendor lock-in."
+    },
+    {
+      "slug": "moneyprinter-turbo",
+      "name": "MoneyPrinterTurbo",
+      "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+      "tags": ["ai-video", "content-generation", "short-form", "automation"],
+      "verdict": "worth-testing",
+      "category": "AI video",
+      "author": "Harry0703",
+      "rating": 4,
+      "status": "trending",
+      "take": "An end-to-end automated pipeline that turns a topic or keyword into HD short-form videos (9:16 or 16:9) — AI script, material sourcing, TTS, subtitles, BGM, and render — with WebUI, CLI, API, and auto-post to TikTok/IG/YouTube Shorts.",
+      "why": "It's at ~114k total stars and gained ~1,200 in one day because it compresses the entire short-form video production workflow into a single runnable command, making high-volume content creation practical for solo creators.",
+      "explanation": "The pipeline chains multiple models: an LLM for scriptwriting, stock footage or AI generation for visuals, TTS for narration, and FFmpeg for assembly. It supports multi-language, aspect-ratio switching, and batch generation. Quality depends on your API keys and model choices; the project is open-source (MIT) but running it well requires decent GPU resources or cloud credits. For teams doing regular short-form content, it replaces a multi-tool manual workflow with a reproducible, version-controlled process."
+    },
+    {
+      "slug": "career-ops",
+      "name": "career-ops",
+      "url": "https://github.com/santifer/career-ops",
+      "tags": ["job-search", "ai-agents", "cv-optimization", "local-first"],
+      "verdict": "worth-sharing",
+      "category": "AI productivity",
+      "author": "Santifer",
+      "rating": 4,
+      "status": "trending",
+      "take": "A local-first AI job search command center that scans portals, scores listings A–F, tailors ATS-optimized CVs and cover letters per role, tracks applications, and researches companies — all running inside your existing AI CLI (Claude Code, Codex, etc.) with no cloud dependency.",
+      "why": "It gained ~920 stars in a day at ~67.5k total because it solves a real, painful workflow: job hunting is high-volume, repetitive, and privacy-sensitive, and existing tools either spam applications or require uploading your career data to a SaaS.",
+      "explanation": "The tool installs as an agent skill and uses your local LLM to parse job descriptions, match against your experience, generate tailored documents, and maintain a local application tracker. Scoring uses a transparent rubric (role fit, compensation signal, company health, etc.) rather than a black-box model. It's MIT-licensed and runs entirely locally, so credentials and personal data never leave your machine. The main caveat is that portal scraping selectors can break when sites redesign, so expect periodic maintenance."
+    }
+  ]
+}
