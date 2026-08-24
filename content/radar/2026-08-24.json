@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-24",
+  "items": [
+    {
+      "slug": "deepseek-harness",
+      "name": "DeepSeek Harness",
+      "url": "https://github.com/deepseek-ai/deepseek-harness",
+      "tags": ["agent-harness", "plugin-architecture", "typescript", "cordis"],
+      "verdict": "must-watch",
+      "category": "Agent framework",
+      "author": "DeepSeek AI",
+      "rating": 5,
+      "status": "trending",
+      "take": "DeepSeek's open-source agent runtime where everything is a plugin — built on Cordis for spatiotemporal composability, it hit ~191k stars in 11 days (since Aug 13) with rapid rc releases and a micro-kernel plugin architecture that makes the entire agent extensible.",
+      "why": "The star velocity is unprecedented for an agent framework; the plugin model means providers, tools, memory, and workflows are all swappable without forking the core, and the replayable session model is the best in the open for debugging agent runs.",
+      "explanation": "DeepSeek Harness (dsh) launched August 13 as a developer preview at v0.1.0-rc.8 by August 21. Its architecture treats every capability — model providers, tools, memory stores, workflows, even the CLI itself — as a Cordis plugin. This means you can replace or extend any piece without touching the core, and plugins compose across time (spatiotemporal composability, from the Cordis paper). The harness includes a Web UI (npx @deepseek-ai/dsh web), a replayable session format for debugging, and a micro-kernel that loads only what's needed. It's MIT-licensed, written in TypeScript, and the issue tracker is intentionally off (Discussions/Discord only) with breaking changes promised in writing. The 191k stars in 11 days measures attention more than production readiness — it's at rc.8 — but the plugin architecture and session replay are genuinely novel for agent runtimes."
+    },
+    {
+      "slug": "munder-difflin",
+      "name": "Munder Difflin",
+      "url": "https://github.com/chaitanyagiri/munder-difflin",
+      "tags": ["multi-agent", "local-first", "desktop-app", "memory"],
+      "verdict": "worth-testing",
+      "category": "Agent harness",
+      "author": "chaitanyagiri",
+      "rating": 4,
+      "status": "trending",
+      "take": "A desktop Electron app that wraps every major coding CLI (Claude Code, Codex, Grok, Kimi, Qwen, OpenCode, Crush, Copilot, Cursor, plus local LLMs) into a self-coordinating agent office — each agent gets a real PTY, persistent memory, a mailbox, and an avatar on a shared Pixi.js floor, orchestrated by your clone (Michael) who routes work and only escalates critical decisions.",
+      "why": "It solves the multi-agent coordination problem locally with zero cloud dependency: real terminal agents that message each other, share a semantic memory palace with instant recall, and visualize as avatars on an office floor — v0.4.5 (Aug 22) fixed cost reporting, Apple Silicon memory, and agent-to-agent delivery with 23 community PRs.",
+      "explanation": "Munder Difflin runs each agent as a genuine node-pty process (byte-for-byte authentic terminal streams rendered via xterm.js) rather than simulating them. The hive layer provides per-agent markdown memory, atomic-file mailboxes, a shared blackboard, and an append-only event log — all on a local git repo with single-committer design to avoid index.lock corruption. The GOD agent (Michael) reads every request, resolves routine ones autonomously, and escalates only spend, destructive ops, or scope changes to you. Features include per-agent git worktrees, semantic recall via MemPalace (condensed so it doesn't grow forever), weekday-scheduled triggers, a built-in Monaco IDE with git rails, Slack/webhook ingestion that can spawn ephemeral workers, and a secret broker for BYOK keys plus Ollama/LM Studio/vLLM. MIT-licensed, cross-platform (macOS signed/notarized, Windows, Linux), with a Discord community. The v0.4.5 release notes are unusually honest about what was broken and is now fixed."
+    },
+    {
+      "slug": "cerne-code",
+      "name": "Cerne Code",
+      "url": "https://github.com/RuvianFabrin/cerne-code",
+      "tags": ["coding-agent", "local-first", "tauri", "rust", "desktop-app"],
+      "verdict": "worth-testing",
+      "category": "Coding agent",
+      "author": "RuvianFabrin",
+      "rating": 4,
+      "status": "trending",
+      "take": "A free, open-source desktop coding agent (Tauri v2 + Rust + Vue 3) that runs 100% locally with any OpenAI-compatible model — Ollama, llama.cpp, LM Studio, or cloud — featuring a sandboxed edit workflow (approve/reject diffs), AST-based code search, background command support, built-in web search without API keys, and an automatic Dev→QA→Analyst quality pipeline.",
+      "why": "It delivers a full Claude Code–equivalent GUI that works entirely offline with local models, adds structural code search (ast_grep) and a quality pipeline that self-verifies with real tests before claiming done, and requires zero Docker or external services — the Windows installer is a single NSIS download.",
+      "explanation": "Cerne Code is a native desktop app (~5 MB binary) built with Tauri v2, not Electron, so it's lighter and uses the system WebView2. It supports four provider types (OpenRouter, local llama.cpp forks, Ollama, LM Studio) through a single OpenAI-compatible streaming implementation. The edit sandbox writes to a sidecar directory and shows a diff for approval before applying. ast_grep/ast_edit use the published ast-grep-core crates (28 languages) for structural search/rewrite — console.log($$$ARGS) matches regardless of formatting. Background commands (dev servers, watch modes) spawn with buffered output and a taskkill /T fallback on Windows that actually kills the process tree. Web search aggregates DuckDuckGo, Brave, and Mojeek with no API key. The Dev→QA→Analyst pipeline runs implementation, test verification, and analysis automatically. Encoding detection uses encoding_rs + chardetng (Mozilla's WHATWG standard impl) to preserve Windows-1252, UTF-16, Shift-JIS, etc. on read/write. MIT-licensed, Windows-first with Linux/macOS support coming. Benchmarked 12 local models on tool-calling; gemma4-e4b-qat-mtp via TurboQuant scored 60/60."
+    }
+  ]
+}
