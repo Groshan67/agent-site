@@ -116,11 +116,11 @@ export default function YahooMessengerLogin() {
               <rect x="6" y="6" width="4" height="4" />
             </svg>
           </TitleBarIconButton>
-          <TitleBarIconButton ariaLabel="Status">
+          {/* <TitleBarIconButton ariaLabel="Status">
             <svg viewBox="0 0 10 10" className="h-[9px] w-[9px]" fill="currentColor">
               <path d="M1 0h6l2 2v8H1z" opacity="0.85" />
             </svg>
-          </TitleBarIconButton>
+          </TitleBarIconButton> */}
           <TitleBarIconButton ariaLabel="Minimize">
             <span className="translate-y-[-5.5px]">_</span>
           </TitleBarIconButton>
@@ -238,7 +238,8 @@ export default function YahooMessengerLogin() {
           </div>
 
           <a
-            href="#"
+            href="https://login.yahoo.com/account/create"
+            target="_blank"
             className="self-start pl-0.5 text-[11px] text-win-link-color underline"
           >
             Get a new Yahoo! ID...
@@ -257,7 +258,7 @@ export default function YahooMessengerLogin() {
             Sign In
           </button>
 
-          <a href="#" className="text-[11px] text-win-link-color underline">
+          <a href="https://login.yahoo.com/forgot?" target="_blank" className="text-[11px] text-win-link-color underline">
             Forgot your password?
           </a>
         </form>
