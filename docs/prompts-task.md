@@ -32,16 +32,16 @@ anywhere), for each URL:
    omit the key entirely if none found). Body: the full post text, written
    as-is (don't paraphrase someone else's prompt).
 6. Run `npm run build`. Fix anything that fails. Commit
-   ("prompts: <slug>"), push.
+   ("prompts: <slug>"), and push to main.
 7. Reply with what got added, and flag anything (like missing media) that
    needs a second look.
 
 ## B) Proactive discovery (optional, like Radar)
 
 If asked to "find some prompts" with no specific URLs: look at public
-sources — X search/hashtag pages, r/PromptEngineering, relevant GitHub
+sources — X search/hashtag pages, r/PromptEngineering , r/PromptHealth, relevant GitHub
 repos, newsletters — for AI prompts worth sharing. Same extraction and
-write steps as above. Keep this to occasional, light browsing, the way a
+write steps as above (option A). Keep this to occasional, light browsing, the way a
 person would check a few pages by hand — not bulk automated scraping.
 
 ## What not to do

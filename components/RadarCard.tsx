@@ -16,8 +16,8 @@ export default function RadarCard({
   const image = getRadarImage(item);
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-card sm:flex-row">
-      <div className="relative aspect-video w-full shrink-0 bg-background sm:aspect-auto sm:w-[35%]">
+    <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-card">
+      <div className="relative aspect-video w-full shrink-0 bg-background ">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img

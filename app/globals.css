@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
+/* --- تنظیمات تم اصلی سایت شما (حفظ شده) --- */
 :root {
   --background: #14161a;
   --foreground: #f2f1ed;
   --card: #1b1e23;
   --border: #292d33;
   --muted: #8a8f98;
-  --accent: #c58b3c;
+  --accent: #d17128;
 }
 
 @theme inline {
@@ -18,8 +19,28 @@
   --color-accent: var(--accent);
   --font-sans: var(--font-ibm);
   --font-mono: var(--font-pixel);
+
+  /* اضافه کردن رنگ‌های ویندوز XP به تم برای استفاده در کلاس سفارشی */
+  --color-win-bg: #ECE9D8;
+  --color-win-border: #0054E3;
+  --color-win-text-color: #000000;
+  --color-win-link-color: #0000EE;
+  --color-win-title-from: #204cc3;
+  --color-win-title-to: #0a81ff;
+  --color-win-title-border: #002D96;
+  --color-win-btn-bg: #ECE9D8;
+  --color-win-btn-border: #7B7B7B;
+  --color-win-btn-hover: #F4F3EA;
+  --color-win-btn-active: #D4D0C8;
+  --color-win-red-btn-bg: #ED1C24;
+  --color-win-red-btn-border: #800000;
+  --color-win-red-btn-hover: #EF5A5F;
+  --color-win-red-btn-active: #AE1319;
+  --color-win-input-border: #7F9DB9;
+  --color-win-input-focus: #204cc3;
 }
 
+/* استایل سراسری body (حفظ شده از پروژه شما) */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -31,34 +52,96 @@ body {
   color: var(--background);
 }
 
-/*
-  Language-aware typography for paragraphs.
-  - When a <p> has lang="fa" (or fa-IR) or lang="ar" we apply Lalezar and RTL styles.
-  - SmartP component sets lang/dir automatically based on content; these CSS rules apply the visual changes globally so individual components don't need inline font styles.
-*/
+/* --- کلاس سفارشی تم ویندوز XP (اضافه شده) --- */
+/* این کلاس را به کانتینر صفحه لاگین اضافه می‌کنیم */
+.winxp-theme {
+  /* تنظیم فونت دقیق ویندوز XP */
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  /* تنظیم رنگ پس‌زمینه صفحه لاگین */
+  background-color: var(--color-win-bg);
+  /* تنظیم رنگ متن پیش‌فرض در این بخش */
+  color: var(--color-win-text-color);
+}
 
-p:lang(fa),
-p:lang(fa-IR),
-p:lang(ar),
-p:lang(ur) {
-  /* Use the CSS variable injected by next/font (layout.tsx). Provide a fallback name if the variable isn't present. */
+/* --- ابزارهای سفارشی Tailwind v4 برای ظاهر ویندوز --- */
+@utility shadow-win-sm {
+  box-shadow: 1px 1px 0px 0px #FFFFFF inset, -1px -1px 0px 0px #404040 inset;
+}
+
+@utility shadow-win-hard {
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.3);
+}
+
+@utility shadow-win-inset {
+  box-shadow: 1px 1px 0px 0px #ACA899 inset, -1px -1px 0px 0px #FFFFFF inset;
+}
+
+@utility text-shadow-win {
+  text-shadow: 1px 1px 0 White;
+}
+
+/* Gentle infinite horizontal scroll for the home page prompts ticker.
+   .marquee-viewport clips + hosts hover-to-pause; .marquee-track holds the
+   content DUPLICATED once by the component so -50% is exactly one loop. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track { animation: marquee 60s linear infinite; }
+.marquee-viewport:hover .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+p:lang(fa), p:lang(fa-IR), p:lang(ar), p:lang(ur) {
   font-family: var(--font-vazirmatn, 'Vazirmatn'), ui-sans-serif, system-ui, sans-serif;
   direction: rtl;
   text-align: justify;
   font-size: 1.125rem; 
   font-weight: 400;
-  
+}
+p[dir="rtl"] { text-align: justify; }
+p[dir="ltr"] { text-align: left; }
+.vazirmatn { font-family: var(--font-vazirmatn, 'Vazirmatn'), ui-sans-serif, system-ui, sans-serif; }
+
+
+@layer base {
+  /* 1. عرض و ارتفاع کلی نوار اسکرول */
+  ::-webkit-scrollbar {
+    width: 10px;  /* کمی عریض‌تر برای ظاهر کلاسیک/ویندوزی بهتر */
+    height: 10px;
+  }
+
+  /* 2. Track (مسیر یا پس‌زمینه نوار اسکرول) */
+  ::-webkit-scrollbar-track {
+    background: var(--card); /* استفاده از رنگ کارت برای پس‌زمینه اسکرول */
+    border-left: 1px solid var(--border); /* جدا کردن بصری از محتوا */
+  }
+
+  /* 3. Thumb (دستگیره یا بخش متحرک نوار اسکرول) */
+  ::-webkit-scrollbar-thumb {
+    background: var(--border); /* رنگ دستگیره از رنگ border تم */
+    border-radius: 2px; /* گوشه‌های کمی گرد */
+    border: 2px solid var(--card); /* ایجاد حاشیه برای برجسته کردن دستگیره */
+    transition: background 0.2s ease; /* افکت نرم */
+  }
+
+  /* 4. هاور کردن روی Thumb (هنگام بردن موس روی اسکرول) */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted); /* تغییر رنگ به muted (خاکستری روشن‌تر) هنگام هاور */
+  }
+
+  /* 5. گوشه اسکرول‌بار (جایی که اسکرول افقی و عمودی به هم می‌رسند) */
+  ::-webkit-scrollbar-corner {
+    background: var(--card);
+  }
 }
 
-/* If dir is set explicitly on any element, adjust alignment accordingly */
-p[dir="rtl"] {
-  text-align: justify;
-}
-p[dir="ltr"] {
-  text-align: left;
-}
-
-/* Utility class if you want to force Lalezar on arbitrary elements */
-.vazirmatn {
-  font-family: var(--font-vazirmatn, 'Vazirmatn'), ui-sans-serif, system-ui, sans-serif;
+/* 
+  (اختیاری) اگر می‌خواهید ظاهر اسکرول‌بار در سیستم‌عامل‌های مدرن (مثل macOS)
+  هنگام اسکرول ظاهر شود (Styling scrollbars on non-webkit),
+  می‌توانید از خصوصیات استاندارد زیر استفاده کنید (که در حال حاضر پشتیبانی محدودی دارند):
+*/
+* {
+  scrollbar-width: thin; /* گزینه‌ها: auto, thin, none */
+  scrollbar-color: var(--border) var(--card); /* رنگ دستگیره و مسیر */
 }

@@ -20,12 +20,14 @@ export function getAllPrompts(): PromptItem[] {
     const { data, content } = matter(raw);
     const slug = file.replace(/\.md$/, "");
 
+    const rawDate = data.date;
+    const dateStr = rawDate instanceof Date ? rawDate.toISOString().split("T")[0] : String(rawDate ?? "");
     return {
       slug,
       title: data.title ?? slug,
       tags: data.tags ?? [],
       sourceUrl: data.sourceUrl,
-      date: data.date ?? "",
+      date: dateStr,
       body: content.trim(),
       // Accept either the current array form or a single old-style object,
       // so nothing written before this change breaks.

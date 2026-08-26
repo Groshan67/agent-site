@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import RadarCard from "./RadarCard";
 import type { RadarItem } from "@/lib/radar-helpers";
 
+const PAGE_SIZE = 6;
+
 export default function RadarSearch({
   items,
   initialTag,
@@ -13,6 +15,7 @@ export default function RadarSearch({
 }) {
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState<string | undefined>(initialTag);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -25,6 +28,19 @@ export default function RadarSearch({
       return haystack.includes(q);
     });
   }, [items, query, activeTag]);
+
+  // Reset to the first page when the filter itself changes (not on every
+  // render) — React's recommended pattern for this, avoiding an effect:
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const filterKey = `${query}::${activeTag ?? ""}`;
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  const visible = filtered.slice(0, visibleCount);
+  const remaining = filtered.length - visible.length;
 
   return (
     <div>
@@ -52,16 +68,29 @@ export default function RadarSearch({
         </button>
       )}
 
-      <ul className="mt-6 space-y-4">
-        {filtered.map((item,index) => (
-          <li key={`${item.slug}-${index}`}>
+      {/* <ul className="mt-6 space-y-4"> */}
+      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        {visible.map((item) => (
+          <li key={item.slug}>
             <RadarCard item={item} onTagClick={setActiveTag} />
           </li>
         ))}
         {filtered.length === 0 && (
           <p className="text-sm text-muted">Nothing matches that search.</p>
         )}
-      </ul>
+      </div>
+      {/* </ul> */}
+
+      {remaining > 0 && (
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+            className="rounded-md border border-border bg-card px-5 py-2 font-mono text-xs text-foreground transition-colors hover:border-accent hover:text-accent"
+          >
+            load {Math.min(remaining, PAGE_SIZE)} more ({remaining} left)
+          </button>
+        </div>
+      )}
     </div>
   );
 }

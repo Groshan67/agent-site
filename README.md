@@ -99,30 +99,80 @@ date: "2026-08-11"
 The prompt text itself.
 ```
 
-## Running the Radar loop on a schedule
+## Free-model alternative (no billing needed)
 
-`docs/radar-task.md` is the daily job — but something still has to kick it
-off. `scripts/trigger-radar.sh` (Linux/macOS/WSL2) and
-`scripts/trigger-radar.ps1` (Windows) send that day's trigger message to
-your Telegram bot automatically, the same way you'd type it by hand, so
-the run still shows up in Telegram and OpenDray like any manual trigger.
+`scripts/trigger-radar-opencode.sh` and `scripts/trigger-prompts-opencode.sh`
+do the same job as the scripts above but call `opencode run` with a free
+model (`opencode/nemotron-3-ultra-free`) instead of `codex exec` — no
+OpenAI platform billing, no CODEX_API_KEY. **Before scheduling either of
+these**, run it manually once and confirm two things: it actually returns
+to your shell prompt (some versions of `opencode run` are known to hang
+indefinitely waiting for a permission prompt with nobody there to answer
+it), and it actually produced the expected result (a new file under
+`content/radar/` or `content/prompts/`). The scripts wrap the call in a
+20-minute `timeout` so a hang gets reported as a bounded failure instead
+of a stuck process piling up day after day — but that's a safety net, not
+a substitute for confirming a real successful run first. Same crontab
+pattern as above, just point at these scripts instead.
+
+## Running Radar and Prompts on a schedule
+
+`docs/radar-task.md` and `docs/prompts-task.md` (option B) are the daily
+jobs. `scripts/trigger-radar.*` and `scripts/trigger-prompts.*` (`.sh` for
+Linux/macOS/WSL2, `.ps1` for Windows) run them directly via `codex exec` —
+**not** by messaging the Telegram bot. (Earlier versions of these scripts
+sent the trigger message to the bot itself; Telegram doesn't deliver an
+update for a bot messaging itself, so OpenDray never saw it and nothing
+ran, even though the message appeared in the chat. `codex exec` is
+OpenAI's documented headless/automation mode and reuses the same login
+`codex` already has on this machine — no new auth needed.) Each script
+still posts a one-way result notification to Telegram afterward (bot to
+*you*, which works fine), so you keep visibility into what happened.
 
 1. Get your chat id once: message the bot anything, then
    `curl "https://api.telegram.org/bot<TOKEN>/getUpdates"` and read
    `message.chat.id` from the response.
-2. Test it manually:
+2. Check `codex` resolves the way cron/Task Scheduler will see it —
+   `which codex` (or `Get-Command codex` on Windows). Cron and Task
+   Scheduler often run with a much smaller PATH than your interactive
+   shell; if the plain `codex` command doesn't resolve in a fresh
+   non-interactive shell, use the full path from `which codex` in your
+   schedule entry, or add a `PATH=` line to the top of your crontab.
+3. Watch for `401 Unauthorized` in the Telegram failure notification or
+   the log file. It means `codex exec` couldn't find your ChatGPT login
+   under cron even though `codex` works fine interactively — usually
+   because cron runs with `HOME` unset or wrong, and the login is stored
+   under `$HOME`. The scripts already try to fix this automatically (they
+   detect a bad `HOME` and resolve it via `getent passwd`), and log
+   `HOME=... whoami=... codex=...` at the top of each run so you can see
+   what they saw. If it still 401s, switch to the officially documented
+   automation auth path instead: create an API key at
+   platform.openai.com/api-keys, then add `CODEX_API_KEY=sk-...` to the
+   same crontab line as the other env vars — no script changes needed,
+   `codex exec` picks it up automatically. Note this key draws from
+   OpenAI **platform** billing, which is separate from a ChatGPT
+   subscription — you'll need billing set up there specifically, which
+   may hit the same kind of access friction discussed earlier for other
+   US AI platforms.
+3. Test each one manually first:
    `TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... ./scripts/trigger-radar.sh`
-3. Schedule it:
-   - Linux/macOS/WSL2 — `crontab -e`, add a line like
-     `0 8 * * * TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... /path/to/agent-site/scripts/trigger-radar.sh >> /tmp/trigger-radar.log 2>&1`
-   - Windows (native) — Task Scheduler → create a basic task, daily
-     trigger, action = start a program: `powershell.exe`, arguments
-     `-File "C:\path\to\agent-site\scripts\trigger-radar.ps1"` (set
+   `TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... ./scripts/trigger-prompts.sh`
+4. Schedule them (two separate entries, a bit apart so they don't overlap):
+   - Linux/macOS/WSL2 — `crontab -e`:
+     ```
+     PATH=/usr/local/bin:/usr/bin:/bin:/home/you/.local/bin
+     0 8 * * *  TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... /path/to/agent-site/scripts/trigger-radar.sh   >> /tmp/trigger-radar.log 2>&1
+     30 8 * * * TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... /path/to/agent-site/scripts/trigger-prompts.sh >> /tmp/trigger-prompts.log 2>&1
+     ```
+     (adjust the `PATH=` line to wherever `which codex` / `which npm` /
+     `which git` actually point)
+   - Windows (native) — Task Scheduler → one basic task per script, daily
+     trigger (stagger the times), action = start a program:
+     `powershell.exe`, arguments
+     `-File "C:\path\to\agent-site\scripts\trigger-radar.ps1"` (and the
+     `trigger-prompts.ps1` equivalent for the second task). Set
      `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` as system environment
-     variables first, or add them inline in the action).
-
-Same pattern works for Prompts discovery (`docs/prompts-task.md`, option B)
-— copy the script, change the message.
+     variables first, or add them inline in the action.
 
 ## What's next
 

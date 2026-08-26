@@ -28,13 +28,13 @@ const pressStart2P = Press_Start_2P({
 });
 
 const vazirmatn = Vazirmatn({
-  weight: '100',
+  weight: '200',
   subsets: ['arabic', 'latin'],
   variable: '--font-vazirmatn',
 });
 
 export const metadata: Metadata = {
-  title: "Roshan — Signal",
+  title: "Ghasem Roshan — Signal",
   description: "Daily radar on AI & open-source projects, plus a public prompt library. Curated in part by an autonomous agent.",
 };
 

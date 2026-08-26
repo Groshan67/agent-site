@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getAllPrompts, getPromptBySlug } from "@/lib/prompts";
+import { getPromptImage } from "@/lib/prompts-helpers";
 import CopyButton from "@/components/CopyButton";
 
 export function generateStaticParams() {
@@ -26,7 +27,7 @@ export default async function PromptItemPage({
         {prompt.title}
       </h1>
 
-      {prompt.media && prompt.media.length > 0 && (
+      {prompt.media && prompt.media.length > 0 ? (
         <div
           className={`mt-6 grid gap-2 ${prompt.media.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}
         >
@@ -40,6 +41,12 @@ export default async function PromptItemPage({
               )}
             </div>
           ))}
+        </div>
+      ) : (
+        // no media of its own — fall back to a stable placeholder photo
+        <div className="mt-6 overflow-hidden rounded-lg border border-border">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={getPromptImage(prompt)} alt="" className="w-full object-cover" />
         </div>
       )}
 

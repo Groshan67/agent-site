@@ -19,3 +19,19 @@ export interface PromptItem {
   author?: string; // X handle, without the @
   tweetId?: string; // used by scripts/fetch-x-prompts.mjs to avoid duplicates
 }
+
+/**
+ * Every prompt gets a usable image: its own media if it has any, otherwise
+ * a stable placeholder from Picsum (free, no key, no signup). Seeded by
+ * slug so the same prompt always gets the same placeholder instead of a
+ * different random photo on every render.
+ */
+export function getPromptImage(item: PromptItem): string {
+  const own = item.media?.[0]?.url;
+  if (own) return own;
+  return `https://picsum.photos/seed/${encodeURIComponent(item.slug)}/800/450`;
+}
+
+export function getFallbackImage(slug: string): string {
+  return `https://picsum.photos/seed/${encodeURIComponent(slug)}/800/450`;
+}

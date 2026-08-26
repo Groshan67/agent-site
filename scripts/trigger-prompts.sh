@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs the Radar task via `opencode run` using a free model — no billing
+# Runs the Prompts task via `opencode run` using a free model — no billing
 # needed. Alternative to trigger-radar.sh (which uses `codex exec`).
 #
 # BEFORE scheduling this in cron: run it manually once, exactly as shown
@@ -16,7 +16,7 @@
 # Requires: `opencode` CLI already installed and configured with the
 # model below on this machine.
 #
-# Usage: TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... ./scripts/trigger-radar-opencode.sh
+# Usage: TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... ./scripts/trigger-prompts-opencode.sh
 
 set -uo pipefail  # no -e: we want to notify Telegram even on failure
 
@@ -34,7 +34,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_DIR"
 
 MODEL="opencode/nemotron-3-ultra-free"
-TASK="Follow docs/radar-task.md and run today's radar."
+TASK="Follow docs/prompts-task.md (option B) and find a few prompts to add."
 TIMEOUT_SECONDS=1200  # 20 min — adjust if a real run legitimately needs longer
 
 {
@@ -46,12 +46,12 @@ OUTPUT=$(timeout "$TIMEOUT_SECONDS" opencode run --model "$MODEL" --dangerously-
 STATUS=$?
 
 if [ $STATUS -eq 124 ]; then
-  SUMMARY="⏱️ Radar timed out after $((TIMEOUT_SECONDS / 60))min, $(date +%Y-%m-%d) — likely hung on a prompt. Killed it, nothing committed."
+  SUMMARY="⏱️ Prompts timed out after $((TIMEOUT_SECONDS / 60))min, $(date +%Y-%m-%d) — likely hung on a prompt. Killed it, nothing committed."
 elif [ $STATUS -eq 0 ]; then
-  SUMMARY="✅ Radar ran ($(date +%Y-%m-%d)).
+  SUMMARY="✅ Prompts ran ($(date +%Y-%m-%d)).
 $(echo "$OUTPUT" | tail -c 600)"
 else
-  SUMMARY="❌ Radar failed, exit $STATUS ($(date +%Y-%m-%d)).
+  SUMMARY="❌ Prompts failed, exit $STATUS ($(date +%Y-%m-%d)).
 $(echo "$OUTPUT" | tail -c 600)"
 fi
 
