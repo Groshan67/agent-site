@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-26",
+  "items": [
+    {
+      "slug": "apache-maka",
+      "name": "Apache Maka",
+      "url": "https://github.com/apache/maka",
+      "tags": ["agent-workspace", "local-first", "append-only-log", "auditability", "apache-incubator"],
+      "verdict": "must-watch",
+      "category": "Agent workspace",
+      "author": "Apache Software Foundation",
+      "rating": 5,
+      "status": "trending",
+      "take": "An Apache Incubator project delivering a local-first AI agent workspace where every model message, tool call, tool result, permission decision, and termination event is recorded as an immutable append-only log — giving you a complete, tamper-proof audit trail of agent behavior.",
+      "why": "It solves the 'black box' problem for autonomous agents by making every action inspectable and replayable; the local-first design keeps data sovereign, and Apache incubation signals long-term governance — this is the audit layer the agent ecosystem has been missing.",
+      "explanation": "Apache Maka entered incubation on August 13, 2026, and hit GitHub Trending the same week with ~3.4k stars and 543+ stars in a single day. The runtime host executes agents through a sandbox boundary, inspects projects, and persists the full execution fact stream as append-only logs — model messages, tool calls, tool results, permission decisions, and termination events. This architecture addresses three critical gaps: transparency (you can replay exactly what the agent did), accountability (permission decisions are permanently recorded), and data sovereignty (logs stay on your machine by default). The project has 12 committers from multiple organizations, mentored by Apache veterans, and is built in TypeScript. While still early (no releases yet), the incubation status and rapid community traction make it a foundational project to watch for anyone building or deploying autonomous agents in production."
+    },
+    {
+      "slug": "mattpocock-skills",
+      "name": "Matt Pocock's Skills",
+      "url": "https://github.com/mattpocock/skills",
+      "tags": ["agent-skills", "claude-code", "cursor", "copilot", "engineering-workflows", "tdd", "code-review"],
+      "verdict": "worth-testing",
+      "category": "Agent skill pack",
+      "author": "Matt Pocock",
+      "rating": 5,
+      "status": "active",
+      "take": "A composable, agent-agnostic skill pack (223K+ stars, MIT) that teaches AI coding agents to plan, TDD, and review like a senior engineer — 50+ slash commands covering spec-to-tickets, implementation with TDD, two-axis code review (standards + spec compliance), architecture improvement, and context handoff between agents.",
+      "why": "It turns 'get the agent to code well' from personal prompt engineering into a shared, versioned toolkit; the skills are shell scripts + prompts that work across Claude Code, Cursor, Copilot, Cline, and Gemini CLI, and the recent v1.2.3 promotes /code-review with a 12-smell Fowler baseline and adds /research + /prototype for autonomous investigation.",
+      "explanation": "Matt Pocock (of Total TypeScript) extracted the skills he uses daily from his own `.agents` directory. The pack splits into Engineering skills (user-invoked: /grill-with-docs, /triage, /to-spec, /to-tickets, /implement, /wayfinder, /improve-codebase-architecture; model-invoked: /prototype, /tdd, /domain-modeling, /codebase-design, /code-review, /resolving-merge-conflicts) and Productivity skills (/grill-me for alignment, /handoff for context transfer). Each skill is a small, composable module — a shell script plus prompt files — invoked as a slash command. The philosophy: agents accelerate entropy, so the fix is caring about code design at every layer. v1.2.3 (Aug 6) graduated /code-review into the main suite with a fixed 12-code-smell baseline, matured /wayfinder for decision mapping, and added /research and /prototype model-invoked skills. 17.7M total installs across the skills.sh registry. MIT licensed, actively maintained with ~1 day median release cadence."
+    },
+    {
+      "slug": "awesome-gpt-image-2",
+      "name": "awesome-gpt-image-2 (Prompt as Code)",
+      "url": "https://github.com/freestylefly/awesome-gpt-image-2",
+      "tags": ["prompt-engineering", "gpt-image-2", "prompt-as-code", "image-generation", "automation"],
+      "verdict": "worth-sharing",
+      "category": "Prompt library",
+      "author": "freestylefly",
+      "rating": 4,
+      "status": "trending",
+      "take": "An industrial-grade prompt engine and template library for GPT-Image-2 that treats prompts as code — 530+ reverse-engineered cases, 20+ professional template packs, and extracted Skills for agent automation, with a visual gallery to browse, copy, and test generations.",
+      "why": "It moves AI image generation from 'can it make an image?' to 'can it make stable, controllable, reusable images?' by versioning prompts, providing structured templates for commercial use cases (e-commerce, product shots, UI mockups, character sheets), and packaging them as Skills that agents can invoke programmatically — +2,777 stars in a single day (Aug 24) to 15.4k total.",
+      "explanation": "The project emerged after GPT-Image-2 became widely available and the community need shifted from experimentation to production reliability. It curates 530+ reverse-engineered examples across styles and scenarios, organized into 20+ professional template packs (e-commerce, posters, UI mockups, character consistency, etc.). The 'Prompt as Code' philosophy means prompts are structured, versioned, and composable — they can be filtered by style/scenario, copied as full payloads, and tested directly in the accompanying gallery site. The maintainer actively manages a paid discussion group and maintains multi-language docs. MIT licensed, JavaScript/TypeScript codebase. The recent star velocity (2,777 in one day per GitGenius) and the unique angle of treating prompts as programmable assets for agent workflows make it a valuable reference for anyone building image-generation pipelines or agent tooling."
+    }
+  ]
+}
