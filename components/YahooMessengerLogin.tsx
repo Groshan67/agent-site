@@ -255,7 +255,7 @@ export default function YahooMessengerLogin() {
             type="submit"
             className="mt-2 border border-win-btn-border bg-win-btn-bg px-8 py-[3px] text-[11px] font-bold text-win-text-color shadow-win-sm hover:bg-win-btn-hover active:bg-win-btn-active active:shadow-win-inset"
           >
-            Sign In
+            {signingIn ? "Signing ..." : "Sign In"}
           </button>
 
           <a href="https://login.yahoo.com/forgot?" target="_blank" className="text-[11px] text-win-link-color underline">
