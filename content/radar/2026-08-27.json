@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-27",
+  "items": [
+    {
+      "slug": "openmontage",
+      "name": "OpenMontage",
+      "url": "https://github.com/calesthio/OpenMontage",
+      "tags": ["agentic-video", "video-production", "remotion", "multi-agent", "production-pipeline"],
+      "verdict": "must-watch",
+      "category": "Agentic Video Production",
+      "author": "calesthio (Microsoft)",
+      "rating": 5,
+      "status": "trending",
+      "take": "The first open-source agentic video production system that turns your AI coding assistant into a full video studio — 12 production pipelines, 100+ tools, and 700+ agent skills handle research, scripting, asset generation, editing, and final composition automatically.",
+      "why": "It replaces the 'single clip from a prompt' model with real production workflows: the agent builds a corpus from free stock footage and open archives, retrieves actual motion clips, edits them into a timeline, and renders finished pieces with multi-point self-review (ffprobe validation, audio analysis, subtitle checks) — all driven by your existing coding agent, no custom orchestrator needed.",
+      "explanation": "OpenMontage launched in March 2026 and has accelerated to ~51k stars with ~1.1k stars/day velocity. The architecture is uniquely agent-first: there is no code orchestrator; your AI coding assistant (Claude Code, Codex, Cursor, Copilot, Gemini CLI) reads pipeline manifests (YAML), stage director skills, and meta skills, then drives tools directly. Three instruction layers — tools (Python BaseTool subclasses), skills (how to use tools in pipelines), and vendor knowledge packs (provider-specific prompt engineering for fal.ai, OpenAI, ElevenLabs, Suno, HeyGen, Runway, plus local providers like diffusers, Piper TTS, WAN 2.1, Hunyuan, CogVideo) — make every generation step expert-informed. 10+ pipelines cover explainers, talking heads, screen demos, cinematic trailers, animations, podcasts, localization, documentary montages, and character animation. The self-review loop runs before any human sees output, and every provider selection is scored across 7 dimensions with an auditable decision log. AGPLv3 licensed, created by calesthio at Microsoft. The 'Monty the Clapper' mascot hints at the production-studio ambition — this is infrastructure for AI-native video creation at scale."
+    },
+    {
+      "slug": "openviking",
+      "name": "OpenViking",
+      "url": "https://github.com/volcengine/OpenViking",
+      "tags": ["agent-memory", "context-database", "rag", "self-evolving", "viking-protocol"],
+      "verdict": "worth-testing",
+      "category": "Agent Context Database",
+      "author": "Volcengine (ByteDance)",
+      "rating": 4,
+      "status": "trending",
+      "take": "A self-evolving context database for AI agents that unifies memory, knowledge RAG, and skills under a virtual `viking://` filesystem — agents browse context with `ls`, `tree`, and `find` instead of querying a black-box vector store, with tiered loading (L0 abstract, L1 overview, L2 details) that cuts token spend by loading only what's needed.",
+      "why": "It solves the context fragmentation problem by making all agent context — memories, resources, skills — navigable as a single deterministic filesystem; directory-recursive retrieval preserves surrounding context, every query leaves an observable trajectory for debugging, and sessions auto-commit into long-term memory. Benchmarks show 80%+ long-term memory accuracy with 63% token reduction vs. high-cost baselines.",
+      "explanation": "Released by Volcengine (ByteDance's cloud arm) in August 2026, OpenViking has ~33.6k stars and is gaining ~284 stars/day. The core innovation is treating context as a database with three types — Resource (static knowledge added by users), Memory (agent-driven dynamic cognition: user profiles, preferences, entities, events, plus agent cases, patterns, tools, skills), and Skill (callable capabilities) — each stored under `viking://` URIs with automatic L0/L1/L2 layer extraction. Agents integrate via plugins, MCP, hooks, or CLI for Claude Code, Codex, Cursor, Trae, OpenCode, and Hermes. The open-source edition is AGPLv3 with no feature gates; a managed service runs on Volcano Engine/BytePlus. VikingBot, a reference agent framework built on top, demonstrates the paradigm. The 'Database Paradigm for Context Engineering' blog post and extensive docs at openviking.ai make this the most thorough take on agent context infrastructure to date."
+    },
+    {
+      "slug": "understand-anything",
+      "name": "Understand Anything",
+      "url": "https://github.com/Egonex-AI/Understand-Anything",
+      "tags": ["code-knowledge-graph", "code-understanding", "claude-code-plugin", "multi-agent", "onboarding"],
+      "verdict": "worth-testing",
+      "category": "Code Intelligence / Knowledge Graph",
+      "author": "Egonex (Lum1104)",
+      "rating": 4,
+      "status": "trending",
+      "take": "A Claude Code plugin (also works with Codex, Cursor, Copilot, Gemini CLI) that runs a 5-agent pipeline to build an interactive knowledge graph of your entire codebase — every file, function, class, and dependency becomes an explorable node with plain-English summaries, architectural layer grouping, guided tours, and diff impact analysis.",
+      "why": "It moves beyond structure-only graphs by adding semantic meaning: tree-sitter gives deterministic structural edges (same input → same graph), while LLM agents add summaries, business-domain mapping, language concept callouts, and persona-adaptive UI. The diff impact analysis shows ripple effects before commit, and guided tours teach the codebase in dependency order — solving onboarding and maintenance for real teams.",
+      "explanation": "Created by Lum1104 at Egonex, the project has ~80.6k stars with ~128 stars/day. The `/understand` command orchestrates project-scanner, file-analyzer, architecture-analyzer, tour-builder, and graph-reviewer agents in parallel (5 concurrent, 20-30 files/batch) with fingerprint-based incremental updates. `/understand-domain` adds a domain-analyzer for business flows; `/understand-knowledge` processes Karpathy-pattern LLM wikis into force-directed graphs with community clustering. Supports 26+ file types (code, Dockerfiles, Terraform, SQL, Markdown). The knowledge graph saves to `.ua/knowledge-graph.json` and opens an interactive web dashboard with hierarchical drill-down, fuzzy/semantic search, dependency path finding, and layer visualization. Works as a Claude Code plugin, with integrations for Codex, OpenCode, and Gemini CLI. The 'graphs that teach > graphs that impress' philosophy makes this a practical daily driver for codebase comprehension, not just a visualization toy."
+    }
+  ]
+}
