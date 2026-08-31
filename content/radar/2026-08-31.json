@@ -1,0 +1,47 @@
+{
+  "date": "2026-08-31",
+  "items": [
+    {
+      "slug": "kiro-crew",
+      "name": "Kiro Crew",
+      "url": "https://github.com/kirodotdev/KiroCrew",
+      "tags": ["async-agents", "coding-workspace", "multi-agent", "aws", "persistent-workspace"],
+      "verdict": "must-watch",
+      "category": "Agent Workspace",
+      "author": "AWS (kirodotdev)",
+      "rating": 5,
+      "status": "trending",
+      "take": "AWS open-sourced their internal async coding agent workspace (3,436 stars in weeks, 39k+ internal Amazon developers) — a persistent, self-evolving workspace where multiple Kiro agents run unattended across sessions, handling incident investigation, ticket triage, migrations, and PR monitoring while you're offline.",
+      "why": "It solves the 'babysitting' problem of current coding agents by making them truly asynchronous: tasks persist across sessions, recur on schedules, and integrate with Slack/Telegram/WeCom for notifications — all running locally or on your own infra under Apache 2.0, with a steering-committee governance model.",
+      "explanation": "Kiro Crew began as 'MeshClaw', an internal Amazon side project inspired by OpenClaw's momentum but built to meet Amazon's security requirements for internal development. The team (Bolin Chen, Zejiang Guo, Zezhen Xu) open-sourced it on August 30, 2026 after it gained 39,000+ internal adopters. It runs on the Kiro CLI, reusing existing .kiro configurations (steering files, skills, custom agents). The desktop app, web dashboard, and CLI all share the same persistent workspace — multi-step tasks survive restarts, recurring jobs run on cron-like schedules, and heartbeats monitor systems until human attention is needed. Kiro Crew Apps package agents, skills, schedules, and integrations for specific jobs (incident response, migration pipelines, PR review). Security layers include OS sandboxing, denied command patterns, bash blocking, input/output validation, sensitive path protection, credential redaction, and signed audit logs. Apache 2.0 licensed, cross-platform (macOS, Linux, Windows), with a public steering committee and open governance. The rapid external traction (3,436 stars, 430 forks, 900 issues in weeks) signals this could become the standard for production-grade async agent workflows."
+    },
+    {
+      "slug": "turing-engine",
+      "name": "Turing Engine",
+      "url": "https://github.com/intutic/turing",
+      "tags": ["llm-serving", "inference", "kv-cache", "speculative-decoding", "single-gpu"],
+      "verdict": "must-watch",
+      "category": "LLM Inference Engine",
+      "author": "intutic",
+      "rating": 5,
+      "status": "trending",
+      "take": "A high-throughput LLM serving runtime that runs frontier 70B–753B models (Llama 4, DeepSeek V4, Kimi K3, GLM 5.3 730B) on a single 24GB consumer GPU — achieving 75% KV cache compression via SVD INT8 and 57% subspace activation pruning for 2.32× layer speedup.",
+      "why": "It makes frontier-scale models locally accessible without quantization-to-GGUF conversion: streams weights directly from Hugging Face Hub, serves triple API gateway (OpenAI + Anthropic + Ollama compatible), and supports every major hardware vendor (NVIDIA CUDA/Triton, AMD ROCm, Intel SYCL, Apple Metal, Vulkan, CPU AVX2/NEON).",
+      "explanation": "Turing Engine (v0.7.0, created Aug 25) targets the fundamental memory wall of LLM inference. Its three core innovations: (1) SVD INT8 KV cache compression reduces 32K context from 10 GB → 2.5 GB (-75%) by projecting attention states into calibrated Rank-64 singular vectors; (2) Subspace activation pruning dynamically slices inactive feed-forward channels during decode, delivering measured 2.32× CUDA layer speedup with zero reasoning accuracy loss; (3) Clean-base lineage preservation maintains bounded representation fidelity (|ΔC_R|₂ ≈ 30.7) across multi-turn agent deliberations, preventing the exponential drift of naive KV re-injection. Additional features: k-slot symmetric pooling (3.1× transfer speedup on long contexts), 3-lane QoS scheduling with token-budget VRAM estimation and sub-50µs admission control, concurrency-adaptive speculation gating (1.82× at c=1 → plain decode at c≥4) with byte-exact greedy parity verification. Benchmarks show 18–50 tok/s on 320B MoE models (GLM-5.3 320B-A18B, Kimi K3 2.8T) on a single 24GB GPU + host RAM — compared to 1–5 tok/s on vLLM/SGLang/Ollama/llama.cpp. BSL 1.1 license (free for single-node dev/research, converts to Apache 2.0 Mar 2030). The comparison matrix vs vLLM/SGLang/Ollama/llama.cpp is the most thorough in the open."
+    },
+    {
+      "slug": "jit-agent",
+      "name": "JIT-Agent",
+      "url": "https://github.com/bingreeky/JIT",
+      "tags": ["meta-agent", "harness-generation", "agent-architecture", "self-improving"],
+      "verdict": "worth-testing",
+      "category": "Agent Framework",
+      "author": "Guibin Zhang et al. (Tsinghua, PKU, DeepLang, UIUC)",
+      "rating": 4,
+      "status": "trending",
+      "take": "A meta-agent that writes task-specific agent harnesses on the fly — instead of precompiling one general scaffold, JIT-Agent takes a task spec, protocol, tool registry, and retrieved prior harnesses, then emits an executable harness (memory, planning, action, capability modules) that wraps any off-the-shelf agentic LLM.",
+      "why": "It treats harness construction as a trainable, transferable axis of agent intelligence orthogonal to base model scaling: harnesses keep improving at test time via trace feedback while the generator stays frozen. JIT-Agent-27B lifts diverse backbone agents across deep research, daily work, planning, and workspace benchmarks.",
+      "explanation": "Released August 17, 2026 (ACL 2026 oral paper), JIT-Agent factors every harness into four modules against shared HarnessFactory interfaces — generation means emitting structured code, not free-form agent programs. The pipeline: meta model writes harness → execution model runs it → judge model grades result. Three operating modes: (1) fixed HarnessFactory designs (11 included: plan_and_execute, react, reflection, etc.), (2) hosted API as meta-agent with judge selection, (3) local JIT-27B checkpoint with logprob selector. Benchmarks: xbench, deepsearchqa, agentif, officebench, odyssey, shopping, travel. Artifacts separate cleanly: generate/ (candidate harnesses), select/ (pick + scores), execute/ (trajectories + metrics), summary.json (headline numbers). Resumes identical runs, retries only infra failures. The 'Model-as-a-Harness' paradigm — building the scaffold as a learnable component — is a genuinely novel direction for agent architectures. License per LICENSE file (see repo)."
+    }
+  ]
+}
