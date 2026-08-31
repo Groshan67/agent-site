@@ -1,13 +1,7 @@
 'use client';
+
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-
-/* ------------------------------------------------------------------ */
-/*  Yahoo! Messenger — Classic Login Window (Windows XP Luna skin)     */
-/*  Pixel-referenced recreation for use inside a Next.js / Tailwind    */
-/*  app. Drop this file into `components/`, put the two image assets  */
-/*  into `public/yahoo/`, then render <YahooMessengerLoginWindow />.   */
-/* ------------------------------------------------------------------ */
 
 type MenuKey = "messenger" | "help" | null;
 
@@ -221,7 +215,8 @@ export default function YahooMessengerLogin() {
             </label>
             <input
               type="text"
-              defaultValue="ghassemeoshan"
+              // defaultValue="Yahoo! ID"              
+              placeholder="Yahoo! ID"
               className="h-[20px] w-full border border-win-input-border bg-white px-1 text-[11px] text-win-text-color shadow-win-inset outline-none focus:border-win-input-focus"
             />
           </div>
@@ -232,7 +227,7 @@ export default function YahooMessengerLogin() {
             </label>
             <input
               type="password"
-              defaultValue="password"
+              placeholder="Password"
               className="h-[20px] w-full border border-win-input-border bg-white px-1 text-[11px] text-win-text-color shadow-win-inset outline-none focus:border-win-input-focus"
             />
           </div>

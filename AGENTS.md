@@ -82,3 +82,55 @@ Design tokens live in `app/globals.css` (`--background`, `--foreground`,
 `--card`, `--border`, `--muted`, `--accent`, plus the `marquee` keyframes
 for the ticker). Reuse them instead of introducing new colors.
 
+## Health Codes (drug coding reference)
+
+`content/health-codes/medications.json` (one array, not day-files) +
+`content/health-codes/_meta.json` (the coding system's own version info —
+currently RxNorm/NLM). Data shapes are loosely modeled on FHIR R4
+(`Coding`, `CodeableConcept`, `Medication`, `CodeSystem`) — see
+`lib/health-codes-helpers.ts` — but this is a static reference dataset,
+not an actual FHIR server; no AWS, no FHIR API. Fs-backed loader:
+`lib/health-codes.ts` (same client/server split as Radar/Prompts — don't
+import it into a Client Component). Search UI:
+`components/HealthCodeSearch.tsx` (client, instant filter, English,
+matches name/code AND category). Routes: `app/health-codes/page.tsx`
+(search + disclaimer + CodeSystem version banner),
+`app/health-codes/[id]/page.tsx` (detail).
+
+Real data source: **RxNorm** (`rxnav.nlm.nih.gov/REST`), the U.S. National
+Library of Medicine's free, public, no-key API — genuinely official and
+international-standard, unlike guessed/fabricated codes. Populate with
+`node scripts/fetch-rxnorm.mjs [names...]` (defaults to a small seed
+list if no names given). Keep the NLM attribution line
+("This product uses publicly available data from the U.S. National
+Library of Medicine...") visible somewhere on the page — it's currently
+in `_meta.json`'s `description`, shown in the version banner.
+
+The shipped `medications.json` entries are placeholders (`id` starting
+with `example-`, flagged via `isExampleEntry()` and shown with an
+"example" badge in the UI) until the fetch script has been run.
+
+**On pricing**: there is no free, unified, genuinely global drug-pricing
+API — pricing is jurisdiction-specific and mostly behind commercial or
+institutional access. `priceUSD` is an optional, manually-filled field
+for exactly this reason — don't wire up a scraper against a pricing
+site without checking its terms of use first, and don't fabricate price
+figures.
+
+**On "search by condition"**: the search box matches the `category`
+field (a hand-set, informational therapeutic classification) as well as
+name/code, so typing a condition like "diabetes" surfaces medications
+whose category references it — this is static reference classification,
+the same kind of thing a print formulary's index does. This is
+deliberately **not** a live AI system that takes freeform symptom
+descriptions and generates drug suggestions for anonymous site visitors
+— that would be dispensing medical guidance without any clinical context
+(allergies, interactions, actual diagnosis), to an audience that isn't
+necessarily equipped to evaluate it. Don't add that. If asked to
+"connect this to the agent" for live suggestions, decline and point back
+to this note.
+
+This section is a reference tool, not medical advice — keep that framing
+(the disclaimer banner on the list page, the "example"/placeholder
+flagging) intact whenever this content is edited.
+

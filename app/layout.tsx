@@ -132,7 +132,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${ibmPlexMono.variable} ${pressStart2P.variable} ${vazirmatn.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${ibmPlexMono.variable} ${pressStart2P.variable} ${vazirmatn.variable} ${geistMono.variable} ${geistSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <SiteHeader />

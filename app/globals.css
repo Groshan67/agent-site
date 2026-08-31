@@ -19,6 +19,7 @@
   --color-accent: var(--accent);
   --font-sans: var(--font-ibm);
   --font-mono: var(--font-pixel);
+  --font-github: var(--font-geist-mono);
 
   /* اضافه کردن رنگ‌های ویندوز XP به تم برای استفاده در کلاس سفارشی */
   --color-win-bg: #ECE9D8;

@@ -1,0 +1,11 @@
+{
+  "resourceType": "CodeSystem",
+  "url": "http://www.nlm.nih.gov/research/umls/rxnorm",
+  "name": "RxNorm",
+  "title": "RxNorm — U.S. National Library of Medicine",
+  "status": "active",
+  "version": "live — reflects whatever RxNorm returned when scripts/fetch-rxnorm.mjs was last run",
+  "date": "2026-08-29",
+  "publisher": "U.S. National Library of Medicine (NLM), National Institutes of Health",
+  "description": "This section is a reference tool only, not medical advice. Drug identity and naming data comes from RxNorm, NLM's free public API (no key required). This product uses publicly available data from the U.S. National Library of Medicine (NLM), United States Department of Health and Human Services; NLM is not responsible for the site's contents. Pricing is not sourced automatically — see AGENTS.md for why."
+}
