@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-05",
+  "items": [
+    {
+      "slug": "termy",
+      "name": "TERMy",
+      "url": "https://github.com/gioblu/NPC-Forge",
+      "tags": ["terminal-assistant", "no-llm", "nlu", "lightweight", "python"],
+      "verdict": "worth-testing",
+      "category": "CLI Tool",
+      "author": "Gio Blu (gioblu)",
+      "rating": 4,
+      "status": "trending",
+      "take": "A terminal assistant that translates natural language to shell commands without using any LLMs, embeddings, or ML — just a ~1000-line Python NLU pipeline with exact matching, template matching, and probabilistic fuzzy matching that runs on a Raspberry Pi Zero.",
+      "why": "It proves you don't need trillion-parameter models for everyday terminal tasks (activate venv, git commands, docker ops); the deterministic NLU is inherently safer than letting an unpredictable LLM run commands on your machine, and it responds in milliseconds with zero API costs.",
+      "explanation": "TERMy (built on the NPC-Forge framework) takes a contrarian stance in the AI terminal assistant space: instead of wrapping an LLM, it implements a classical NLU pipeline — strip noise, sentiment analysis, exact match → template match → IDF-weighted Levenshtein probabilistic match — all in ~1000 lines of Python. Permission gating is hardcoded into the command dataset, so destructive operations are blocked by design. The author (creator of PJON protocol, implemented in silicon by ETH Zurich) built this during a two-month sabbatical after getting tired of paying for Copilot to run trivial commands. It runs entirely on CPU, works in-browser via WebAssembly, and integrates with Copilot as a fallback for complex queries. Demo videos show typo tolerance, variance handling, and Copilot integration. MIT licensed. The repo is gioblu/NPC-Forge (TERMy is the demo app); 83 points on Show HN (Sep 4)."
+    },
+    {
+      "slug": "pageindex",
+      "name": "PageIndex",
+      "url": "https://github.com/VectifyAI/PageIndex",
+      "tags": ["rag", "vectorless", "reasoning", "document-processing", "mcp"],
+      "verdict": "must-watch",
+      "category": "RAG Framework",
+      "author": "Vectify AI",
+      "rating": 5,
+      "status": "trending",
+      "take": "A reasoning-based RAG system that replaces vector databases and chunking with a hierarchical tree index — LLMs reason through the tree like a human expert navigating a document, achieving 98.7% on FinanceBench without embeddings.",
+      "why": "Vector RAG retrieves by similarity, but similarity ≠ relevance; PageIndex uses LLM reasoning over a structural tree index (natural sections, not fixed chunks) to find what's actually relevant, with traceable citations to exact page ranges — no vector DB infrastructure needed.",
+      "explanation": "PageIndex (from Vectify AI, 186 points on Hacker News Sep 4) builds a two-step pipeline: (1) Index — an LLM generates a hierarchical tree structure from a document (like a smart table of contents), stored as plain JSON; (2) Retrieve — the chat model performs tree search, reasoning about which nodes to explore based on titles, summaries, and conversation context. This eliminates the embedding/vector-search/chunking stack entirely. The approach hit 98.7% accuracy on FinanceBench (SOTA), significantly outperforming vector RAG on long, complex professional documents (financial reports, legal filings, technical manuals, medical literature). Ships as Python SDK, REST API, MCP server, and a chat platform. The index model can be cheap (structure only); the chat model should be the best you can afford (reasoning). Also offers OpenKB (wiki compiler), ChatIndex (conversation history), ConDB (KV-cache context DB). Apache 2.0 licensed."
+    },
+    {
+      "slug": "openmythos",
+      "name": "OpenMythos",
+      "url": "https://github.com/kyegomez/OpenMythos",
+      "tags": ["llm-architecture", "recurrent-depth-transformer", "moe", "mla", "act-halting", "research"],
+      "verdict": "interesting",
+      "category": "LLM Architecture",
+      "author": "Kye Gomez (Swarms.ai)",
+      "rating": 4,
+      "status": "trending",
+      "take": "A theoretical, from-first-principles PyTorch reconstruction of Anthropic's Claude Mythos architecture — a Recurrent-Depth Transformer with Prelude/Recurrent/Coda stages, MoE FFN, switchable MLA/GQA attention, LTI-stable injection, and ACT adaptive compute halting.",
+      "why": "It's a rare open-source implementation of a frontier-model architecture hypothesis (not a leak — built from public papers), letting researchers experiment with recurrent depth, depth extrapolation, and compute-adaptive reasoning in ~68 KB of core code; 14.8K stars in 10 days shows intense community interest.",
+      "explanation": "OpenMythos (by Kye Gomez, 22, founder of Swarms.ai, dev.to feature Sep 4) implements the hypothesized Claude Mythos as a Recurrent-Depth Transformer (RDT): Prelude (standard transformer blocks) → Recurrent Block (one block looped T times with frozen input injection, h_{t+1} = A·h_t + B·e + Transformer(h_t, e), MoE FFN, ACT halting for variable compute per token) → Coda (standard blocks). Key properties: same weights, more loops = deeper reasoning without parameter growth; depth extrapolation (train on N loops, test on N+k); LTI-stable recurrent injection (spectral radius < 1 by construction); supports both GQA and MLA attention. Pure PyTorch, MIT licensed, runnable locally (`pip install open-mythos`). Not affiliated with Anthropic — a community reconstruction from public literature. ~68 KB core, 14.8K stars, 3.3K forks."
+    }
+  ]
+}
