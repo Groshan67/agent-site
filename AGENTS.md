@@ -84,53 +84,95 @@ for the ticker). Reuse them instead of introducing new colors.
 
 ## Health Codes (drug coding reference)
 
-`content/health-codes/medications.json` (one array, not day-files) +
-`content/health-codes/_meta.json` (the coding system's own version info —
-currently RxNorm/NLM). Data shapes are loosely modeled on FHIR R4
-(`Coding`, `CodeableConcept`, `Medication`, `CodeSystem`) — see
-`lib/health-codes-helpers.ts` — but this is a static reference dataset,
-not an actual FHIR server; no AWS, no FHIR API. Fs-backed loader:
-`lib/health-codes.ts` (same client/server split as Radar/Prompts — don't
-import it into a Client Component). Search UI:
-`components/HealthCodeSearch.tsx` (client, instant filter, English,
-matches name/code AND category). Routes: `app/health-codes/page.tsx`
-(search + disclaimer + CodeSystem version banner),
-`app/health-codes/[id]/page.tsx` (detail).
+Live search now, not a static file — RxNorm alone has hundreds of
+thousands of concepts, too many to usefully commit to JSON (this is why
+`content/health-codes/medications.json` and `scripts/fetch-rxnorm.mjs`
+were removed; don't recreate them). `content/health-codes/_meta.json` is
+the only file left here — the coding system's own version/publisher
+info, CodeSystem-shaped. Types (loosely FHIR: `Coding`, `CodeableConcept`,
+`Medication`) plus `formIconKey()`: `lib/health-codes-helpers.ts`.
+`lib/health-codes.ts` just reads `_meta.json` (same client/server split
+convention as Radar/Prompts, though this file barely touches `node:fs`
+anymore).
 
-Real data source: **RxNorm** (`rxnav.nlm.nih.gov/REST`), the U.S. National
-Library of Medicine's free, public, no-key API — genuinely official and
-international-standard, unlike guessed/fabricated codes. Populate with
-`node scripts/fetch-rxnorm.mjs [names...]` (defaults to a small seed
-list if no names given). Keep the NLM attribution line
-("This product uses publicly available data from the U.S. National
-Library of Medicine...") visible somewhere on the page — it's currently
-in `_meta.json`'s `description`, shown in the version banner.
+Route: `app/api/health-codes/search/route.ts` proxies live to
+**RxTerms** (NLM's Clinical Table Search Service,
+`clinicaltables.nlm.nih.gov/api/rxterms/v3/search`) — free, official, no
+key, and built specifically for partial-word autocomplete, unlike plain
+RxNorm `drugs.json` (which needs a full/normalized name — that was the
+first version of this route, and why searching "aceta" used to return
+nothing until you typed the whole word). Its response is a **positional
+array**, not a keyed object —
+`[count, displayNames[], {STRENGTHS_AND_FORMS, RXCUIS}, dfRows[]]`; the
+parser in `route.ts` was checked against NLM's own two worked examples
+from their docs (not just assumed), since this sandbox can't reach the
+live endpoint to confirm it directly. `cleanDrugName()` strips RxTerms'
+trailing route hint ("ARAVA (Oral Pill)" → "ARAVA") — that cleaned name
+is what feeds the DailyMed image/reference lookup below; the original
+version passed DailyMed the full compound RxNorm-style string (e.g.
+"famotidine 26.6 MG / ibuprofen 800 MG Oral Tablet [Duexis]") and it
+mostly came back "not found."
 
-The shipped `medications.json` entries are placeholders (`id` starting
-with `example-`, flagged via `isExampleEntry()` and shown with an
-"example" badge in the UI) until the fetch script has been run.
+The route also looks up a real product image per result via
+`lib/dailymed.ts` (capped to the first 5 results per search since each
+is 2 extra requests). UI: `components/HealthCodeSearch.tsx` (client,
+debounced fetch to that route) + `components/FormIcon.tsx` (small
+dose-form icons, matched via `formIconKey()` — handles both full words
+and RxTerms' abbreviations like "Tab"/"Cap"). Every result's name links
+out to its RxNav reference page (`sourceUrl`) — **there is no internal
+`/health-codes/[id]` route**; it was removed along with the static file
+it depended on. Don't link a result to an internal path again — that's
+a 404 waiting to happen.
 
-**On pricing**: there is no free, unified, genuinely global drug-pricing
-API — pricing is jurisdiction-specific and mostly behind commercial or
-institutional access. `priceUSD` is an optional, manually-filled field
-for exactly this reason — don't wire up a scraper against a pricing
-site without checking its terms of use first, and don't fabricate price
-figures.
+**On pill images**: NLM's Pillbox and RxImage (the free, official
+pill-appearance-by-photo APIs) were both retired in 2021; NLM's own
+retirement notice says the leftover static files "should not be used for
+pill identification." `lib/dailymed.ts` is the current answer — real
+images tied to an actual regulatory submission for the matched name, via
+DailyMed's documented `/spls.json` → `/spls/{setid}/media.json` flow.
+This was written from DailyMed's docs; this sandbox can't reach
+`dailymed.nlm.nih.gov` to confirm the exact JSON nesting against a live
+response, so `extractFirstImageUrl` tries a couple of plausible shapes
+and fails soft (falls back to a "view on DailyMed" link) rather than
+guessing wrong. If images still don't appear once this runs somewhere
+with real network access, log a raw response there and adjust the
+extraction — don't switch to a generic image-search API (Google, Bing,
+Wikimedia Commons, etc.) as a fallback: an unrelated or wrong-strength
+photo next to real coding data is actively misleading in a health
+context, worse than no photo.
 
-**On "search by condition"**: the search box matches the `category`
-field (a hand-set, informational therapeutic classification) as well as
-name/code, so typing a condition like "diabetes" surfaces medications
-whose category references it — this is static reference classification,
-the same kind of thing a print formulary's index does. This is
-deliberately **not** a live AI system that takes freeform symptom
-descriptions and generates drug suggestions for anonymous site visitors
-— that would be dispensing medical guidance without any clinical context
-(allergies, interactions, actual diagnosis), to an audience that isn't
-necessarily equipped to evaluate it. Don't add that. If asked to
-"connect this to the agent" for live suggestions, decline and point back
-to this note.
+**On pricing**: no free, unified, genuinely global drug-pricing API
+exists — pricing is jurisdiction-specific and mostly behind commercial
+or institutional access. Don't wire one up; don't fabricate figures.
 
-This section is a reference tool, not medical advice — keep that framing
-(the disclaimer banner on the list page, the "example"/placeholder
-flagging) intact whenever this content is edited.
+**On "search by condition"**: RxNorm's `name` param matches drug/
+ingredient names, not disease/condition terms — searching "diabetes"
+here won't find much, because it's a drug database, not an indications
+database. The real path for that is NLM's **RxClass** API (drug class
+membership, including indication-based classes) — not wired up yet.
+Whatever gets built for it must stay a **static classification lookup**
+("drugs registered under class X"), never a live system that takes a
+freeform symptom description and generates a drug suggestion for
+anonymous visitors — that's dispensing medical guidance with no clinical
+context (allergies, interactions, actual diagnosis) to an audience not
+equipped to evaluate it. If asked to "connect this to the agent" for
+live symptom-based suggestions, decline and point back to this note.
+
+This section is a reference tool, not medical advice — keep the
+disclaimer banner on `app/health-codes/page.tsx` intact whenever this is
+edited.
+
+## Home-page health widgets
+
+`components/MedicalArticlesSection.tsx` (`lib/medical-articles.ts`) —
+recent PubMed-indexed articles via NLM's E-utilities (real, free). PubMed
+has no public trending/engagement metric, so this sorts by publish date
+and is labeled "recent," not "trending" — don't relabel it without a
+source that backs the stronger claim. Rendered on the home page right
+under the Prompts ticker.
+
+There used to also be a COVID-19/flu stats widget here
+(`components/HealthStatsWidget.tsx` / `lib/health-stats.ts`, sourced from
+disease.sh) — removed at the user's request, along with its files. Don't
+recreate it unless asked.
 

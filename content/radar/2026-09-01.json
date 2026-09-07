@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-01",
+  "items": [
+    {
+      "slug": "omniroute",
+      "name": "OmniRoute",
+      "url": "https://github.com/diegosouzapw/OmniRoute",
+      "tags": ["ai-gateway", "llm-router", "free-tier", "token-compression", "multi-provider"],
+      "verdict": "must-watch",
+      "category": "AI Gateway",
+      "author": "Diego Souza (diegosouzapw)",
+      "rating": 5,
+      "status": "trending",
+      "take": "A free, MIT-licensed AI gateway that puts 352 providers (150+ free tiers) and 1,300+ models behind one OpenAI-compatible endpoint — with RTK+Caveman compression saving ~89% tokens on average and quota-aware auto-fallback so you never hit limits.",
+      "why": "It solves the fragmentation of managing dozens of API keys, SDKs, and rate limits by aggregating ~1.5B free tokens/month across providers like Kimi, Claude, GPT, Gemini, GLM, DeepSeek, and MiniMax — all accessible through a single endpoint that works natively with Claude Code, Codex, Cursor, OpenCode, Cline, and Copilot.",
+      "explanation": "OmniRoute began as a fork of 9router in February 2026 and has since grown to 59k+ stars with 460+ contributors. Its core innovation is stacking free tiers programmatically: the gateway discovers no-auth provider pools at startup (36 routing aliases like `auto/best-coding` and `auto/best-free` work immediately), then layers on subscription keys for higher quotas. The compression pipeline (RTK + Caveman) is model-agnostic and achieves 15–95% token reduction (~89% average) without quality loss, effectively multiplying every free tier. Nineteen routing strategies include cost-optimized, latency-first, and quota-share modes with live telemetry. The CLI ships 80+ commands (`omniroute chat` for a TUI client, `omniroute doctor` for diagnostics) and the desktop app (Electron) + mobile PWA share the same gateway core. MCP Server (95 tools), A2A protocol, and a skill/memory system make it extensible for agent workflows. MIT licensed, self-hostable via Docker (`docker run -p 20128:20128 diegosouzapw/omniroute`) or npm (`npx omniroute`). The v3.8.51 release (Aug 2026) added modality bridges for vision/audio/video and an opt-in free-catalog radar."
+    },
+    {
+      "slug": "orca-ade",
+      "name": "Orca",
+      "url": "https://github.com/stablyai/orca",
+      "tags": ["ade", "parallel-agents", "worktree", "mobile", "agent-ide"],
+      "verdict": "must-watch",
+      "category": "Agent IDE",
+      "author": "Stably AI (YC W2026)",
+      "rating": 5,
+      "status": "trending",
+      "take": "An Agent Development Environment (ADE) that runs fleets of coding agents (Claude Code, Codex, OpenCode, Grok, Copilot, 25+ CLIs) in parallel git worktrees — each agent gets its own isolated workspace, terminal, and browser, with a mobile companion app to monitor and steer from your phone.",
+      "why": "Traditional IDEs weren't built for agents; Orca replaces branch juggling with worktree isolation so you can fan one prompt across 5 agents, compare results side-by-side, and merge the winner — all while Ghostty-class WebGL terminals, embedded Chromium with Design Mode (click any UI element to send HTML/CSS/screenshot to the agent), and native GitHub/Linear integration keep you in flow.",
+      "explanation": "Orca (from Stably AI, YC W2026) rethinks the dev environment for the agent era. Instead of a single terminal, you get infinite splits with scrollback that survives restarts. Every task spins up a git worktree — no stashing, no conflicts — and the SSH worktree feature lets agents run on a remote GPU box with full file editing, git, and port forwarding. The mobile app (iOS TestFlight + Android APK) pushes notifications when agents finish or need input, and you can send follow-up prompts from anywhere. Account switcher hot-swaps Claude/Codex subscriptions without re-login; usage tracking shows rate-limit resets in-app. The CLI (`orca worktree create`, `snapshot`, `click`, `fill`) lets agents drive Orca themselves. Computer Use lets agents operate desktop apps when a workflow needs real UI interaction. Skills and MCP hooks extend agent behavior per-project. Ships daily — the changelog is the real feature list. MIT licensed, runs on macOS (Apple Silicon/Intel), Windows, Linux. 58k+ stars, 3.9k forks, +10.8k stars this week."
+    },
+    {
+      "slug": "video-use",
+      "name": "video-use",
+      "url": "https://github.com/browser-use/video-use",
+      "tags": ["video-editing", "coding-agent", "ffmpeg", "browser-use", "media-automation"],
+      "verdict": "worth-testing",
+      "category": "Video Automation",
+      "author": "browser-use team",
+      "rating": 4,
+      "status": "trending",
+      "take": "A framework that lets coding agents (Claude Code, Codex, Hermes) edit videos programmatically — drop raw footage in a folder, describe the edit in natural language, and the agent plans and executes FFmpeg/MoviePy/OpenCV operations to produce `final.mp4`.",
+      "why": "It brings the 'agent-for-everything' paradigm to video production: instead of learning Premiere or DaVinci, you chat with your coding agent ('cut filler words, add fade transitions, burn in Whisper captions, reformat horizontal→vertical for Shorts') and get a finished file — fully local, no per-minute API fees, no upload bottlenecks.",
+      "explanation": "video-use (from the browser-use org, April 2026, 18k+ stars) installs as a skill into Claude Code, Codex, or any agent that supports the Agent Skills standard. The agent never watches the video — it reads metadata, plans a sequence of FFmpeg/Python operations, executes them, verifies output (duration, frame count, file size), and iterates on your feedback. Features include: auto silence/filler-word removal, 30ms crossfades at every cut, per-segment color grading (warm cinematic, neutral punch, custom ffmpeg chains), Whisper-based captioning with style customization, compositing (picture-in-picture, green-screen keying, animated overlays), and intelligent format conversion for target platforms (YouTube, X/Twitter, TikTok). Batch processing applies the same pipeline to hundreds of videos. Runs locally with `uv sync` + `brew install ffmpeg`; ElevenLabs API key optional for TTS. MIT licensed. The `SKILL.md` defines production-grade editing rules (correctness non-negotiable, taste optional). A genuine shift from GUI editors to agent-driven pipelines for developers who'd rather write prompts than keyframes."
+    }
+  ]
+}

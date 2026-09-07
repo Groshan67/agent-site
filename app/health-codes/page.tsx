@@ -1,10 +1,9 @@
-import { getAllMedications, getCodeSystemMeta } from "@/lib/health-codes";
+import { getCodeSystemMeta } from "@/lib/health-codes";
 import HealthCodeSearch from "@/components/HealthCodeSearch";
 
 export const metadata = { title: "Health Codes" };
 
 export default function HealthCodesPage() {
-  const items = getAllMedications();
   const meta = getCodeSystemMeta();
 
   return (
@@ -13,8 +12,9 @@ export default function HealthCodesPage() {
         Health Codes
       </h1>
       <p className="mt-2 max-w-xl text-sm text-muted">
-        A searchable reference for standardized drug codes. Search by name,
-        code, or therapeutic category.
+        Live search against RxNorm — the U.S. National Library of Medicine&apos;s
+        official drug naming database. Nothing is stored here; every search
+        queries RxNorm directly.
       </p>
 
       <div className="mt-6 rounded-lg border border-accent/40 bg-card p-4 text-sm text-muted">
@@ -25,13 +25,13 @@ export default function HealthCodesPage() {
         </p>
         {meta && (
           <p className="mt-2 font-mono text-xs">
-            Source: {meta.title} · Version: {meta.version} · Updated: {meta.date}
+            Source: {meta.title} · {meta.publisher}
           </p>
         )}
       </div>
 
       <div className="mt-8">
-        <HealthCodeSearch items={items} />
+        <HealthCodeSearch />
       </div>
     </div>
   );

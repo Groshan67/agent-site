@@ -4,8 +4,12 @@ import { getAllPrompts } from "@/lib/prompts";
 import RadarCard from "@/components/RadarCard";
 import PromptsTicker from "@/components/PromptsTicker";
 import AboutSection from "@/components/AboutSection";
-import NostalgiaEmoticons from "@/components/NostalgiaEmoticons";
+
+import MedicalArticlesSection from "@/components/MedicalArticlesSection";
 import YahooMessengerLogin from "@/components/YahooMessengerLogin";
+import NostalgiaEmoticons from "@/components/NostalgiaEmoticons";
+
+
 
 export default function Home() {
   const latestRadar = getAllRadarItems().slice(0, 2);
@@ -76,28 +80,18 @@ export default function Home() {
 
       <AboutSection />
 
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
           {latestRadar.length > 0 && (
             <section>
               <div className="flex items-center justify-between">
-                <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
-                  latest on radar
-                </h2>
-                <Link
-                  href="/radar"
-                  className="font-mono text-xs text-accent transition-colors hover:text-foreground"
-                >
-                  view all →
-                </Link>
+                <h2 className="font-mono text-xs uppercase tracking-widest text-muted">latest on radar</h2>
+                <Link href="/radar" className="font-mono text-xs text-accent transition-colors hover:text-foreground">view all →</Link>
               </div>
               <ul className="mt-4 space-y-4">
                 {latestRadar.map((item) => (
                   <li key={item.slug}>
-                    <RadarCard
-                      item={item}
-                      tagHref={(tag) => `/radar?tag=${encodeURIComponent(tag)}`}
-                    />
+                    <RadarCard item={item} tagHref={(tag) => `/radar?tag=${encodeURIComponent(tag)}`} />
                   </li>
                 ))}
               </ul>
@@ -107,19 +101,13 @@ export default function Home() {
           {topPrompts.length > 0 && (
             <section>
               <div className="flex items-center justify-between">
-                <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
-                  top prompts
-                </h2>
-                <Link
-                  href="/prompts"
-                  className="font-mono text-xs text-accent transition-colors hover:text-foreground"
-                >
-                  view all →
-                </Link>
+                <h2 className="font-mono text-xs uppercase tracking-widest text-muted">top prompts</h2>
+                <Link href="/prompts" className="font-mono text-xs text-accent transition-colors hover:text-foreground">view all →</Link>
               </div>
               <div className="mt-4">
                 <PromptsTicker items={topPrompts} />
               </div>
+              <MedicalArticlesSection />
             </section>
           )}
         </div>

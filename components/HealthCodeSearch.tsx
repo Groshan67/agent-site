@@ -1,40 +1,52 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import type { MedicationEntry } from "@/lib/health-codes-helpers";
-import { isExampleEntry } from "@/lib/health-codes-helpers";
+import { formIconKey } from "@/lib/health-codes-helpers";
+import FormIcon from "./FormIcon";
 
-export default function HealthCodeSearch({ items }: { items: MedicationEntry[] }) {
+export default function HealthCodeSearch() {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<MedicationEntry[]>([]);
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return items;
-    return items.filter((item) => {
-      // Matches on name/code AND on category — searching a condition
-      // like "diabetes" surfaces medications whose reference category
-      // mentions it. This is classification lookup, not a diagnosis or
-      // treatment recommendation.
-      const haystack = [
-        item.code.text ?? "",
-        item.code.coding.map((c) => `${c.code} ${c.display}`).join(" "),
-        item.genericNameEn ?? "",
-        item.category ?? "",
-      ]
-        .join(" ")
-        .toLowerCase();
-      return haystack.includes(q);
-    });
-  }, [items, query]);
+  useEffect(() => {
+    if (query.trim().length < 2) return; // cleared in handleQueryChange instead
+
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/health-codes/search?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        setResults(data.results ?? []);
+        setStatus(data.error ? "error" : "idle");
+      } catch {
+        setResults([]);
+        setStatus("error");
+      }
+    }, 400);
+
+    return () => clearTimeout(debounceRef.current);
+  }, [query]);
+
+  function handleQueryChange(value: string) {
+    setQuery(value);
+    if (value.trim().length < 2) {
+      setResults([]);
+      setStatus("idle");
+    } else {
+      setStatus("loading");
+    }
+  }
 
   return (
     <div>
       <input
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder='Search by name, code, or category (e.g. "diabetes")…'
+        onChange={(e) => handleQueryChange(e.target.value)}
+        placeholder='Search by drug name (e.g. "ibuprofen")…'
         className="w-full rounded-md border border-border bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted focus:border-accent focus:outline-none"
       />
 
@@ -43,41 +55,73 @@ export default function HealthCodeSearch({ items }: { items: MedicationEntry[] }
           <thead>
             <tr className="border-b border-border bg-card font-mono text-xs text-muted">
               <th className="px-4 py-3 font-normal">Name</th>
-              <th className="px-4 py-3 font-normal">Code</th>
-              <th className="px-4 py-3 font-normal">Category</th>
-              <th className="px-4 py-3 font-normal">Form</th>
+              <th className="px-4 py-3 font-normal">RxCUI</th>
+              <th className="px-4 py-3 font-normal">Dose form</th>
+              <th className="px-4 py-3 font-normal">Appearance</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {filtered.map((item) => {
+            {results.map((item) => {
               const primary = item.code.coding[0];
               return (
                 <tr key={item.id} className="transition-colors hover:bg-card">
                   <td className="px-4 py-3">
-                    <Link
-                      href={`/health-codes/${item.id}`}
+                    <a
+                      href={item.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-foreground transition-colors hover:text-accent"
                     >
                       {primary?.display ?? item.code.text}
-                    </Link>
-                    {isExampleEntry(item) && (
-                      <span className="ml-2 rounded-md border border-accent/40 px-1.5 py-0.5 font-mono text-[10px] text-accent">
-                        example
-                      </span>
+                    </a>
+                  </td>
+                  <td className="px-4 py-3 font-mono text-xs text-muted">{primary?.code}</td>
+                  <td className="px-4 py-3 text-muted">
+                    <span className="flex items-center gap-2">
+                      <FormIcon formKey={formIconKey(item.form)} />
+                      {item.form ?? "—"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    {item.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={item.imageUrl}
+                        alt=""
+                        className="h-10 w-10 rounded object-contain"
+                      />
+                    ) : (
+                      <a
+                        href={`https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=${encodeURIComponent(
+                          item.genericNameEn ?? item.code.text ?? "",
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-xs text-accent underline-offset-2 hover:underline"
+                      >
+                        view on DailyMed ↗
+                      </a>
                     )}
                   </td>
-                  <td className="px-4 py-3 font-mono text-xs text-muted">
-                    {primary?.code}
-                  </td>
-                  <td className="px-4 py-3 text-muted">{item.category ?? "—"}</td>
-                  <td className="px-4 py-3 text-muted">{item.form ?? "—"}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-        {filtered.length === 0 && (
+
+        {status === "loading" && (
+          <p className="p-4 font-mono text-xs text-muted">Searching…</p>
+        )}
+        {status === "error" && (
+          <p className="p-4 text-sm text-muted">
+            Couldn&apos;t reach RxNorm just now — try again in a moment.
+          </p>
+        )}
+        {status === "idle" && query.trim().length >= 2 && results.length === 0 && (
           <p className="p-4 text-sm text-muted">No matches.</p>
+        )}
+        {query.trim().length < 2 && (
+          <p className="p-4 text-sm text-muted">Type at least 2 characters to search.</p>
         )}
       </div>
     </div>
