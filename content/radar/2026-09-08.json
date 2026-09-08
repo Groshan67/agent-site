@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-08",
+  "items": [
+    {
+      "slug": "bankmcp",
+      "name": "BankMCP",
+      "url": "https://github.com/noskillish/bankmcp",
+      "tags": ["mcp", "open-banking", "personal-finance", "self-hosted", "psd2"],
+      "verdict": "must-watch",
+      "category": "MCP Server",
+      "author": "noskillish",
+      "rating": 5,
+      "status": "trending",
+      "take": "A self-hosted, read-only MCP server that lets your AI (Claude, Ollama) securely access your bank accounts via open banking (Enable Banking / PSD2). No credentials leave your machine; the MCP server runs locally and exposes standard tools for balances, transactions, and account info.",
+      "why": "Finally, a practical MCP server for personal finance that's self-hosted and read-only by design. It solves the 'I want my AI to understand my finances' problem without handing API keys to a SaaS. Tested with Claude Code and Ollama; MIT licensed.",
+      "explanation": "BankMCP bridges open banking (via Enable Banking's PSD2-compliant aggregator) to the Model Context Protocol. You run the server locally (`docker run` or `npx`), complete the bank consent flow in your browser once, and your AI gains standard MCP tools: `list_accounts`, `get_balances`, `get_transactions` with date filters. The server stores only encrypted access tokens locally; no transaction data leaves your machine. Supports 2,000+ European banks. The author built it after realizing every 'AI finance assistant' either required sharing credentials or only worked with one bank's API. Roadmap: categorization, budgeting tools, and multi-user support for family finance. 100 stars in 24h shows strong pent-up demand."
+    },
+    {
+      "slug": "pcb-skill",
+      "name": "PCB Skill",
+      "url": "https://github.com/daishuge/pcb-skill",
+      "tags": ["mcp", "hardware", "pcb-design", "easyeda", "agent-skill"],
+      "verdict": "worth-testing",
+      "category": "Agent Skill",
+      "author": "daishuge",
+      "rating": 4,
+      "status": "trending",
+      "take": "An agent skill that takes a hardware idea to a manufacturable PCB: concept → schematic → component sourcing → layout → routing → verification → purchase cart. Drives EasyEDA Pro over MCP from Claude Code or Codex, automating the full EE workflow.",
+      "why": "Most 'AI for hardware' tools stop at code generation. This skill drives a professional EDA tool (EasyEDA Pro) via MCP to produce real, fabricatable boards — including BOM sourcing from LCSC and a staged cart ready for order. 58 stars in hours signals a real niche.",
+      "explanation": "PCB Skill is a Codex/Claude Code skill (Python, MIT) that wraps the EasyEDA Pro API as MCP tools. You describe a project ('ESP32-S3 dev board with USB-C, 2MB PSRAM, LiPo charger'), and the agent: (1) creates the schematic with hierarchical sheets, (2) selects parts from LCSC (real-time stock/price), (3) places and routes the PCB with DRC, (4) runs ERC/DRC verification, (5) generates Gerbers and a BOM, (6) stages a cart at LCSC/EasyEDA. The skill handles footprint assignment, stackup selection, impedance-controlled routing hints, and panelization. It's not a fully autonomous 'one prompt → gerbers' yet — the human reviews each stage — but it eliminates the tedious clicks and part-hunting that eat 80% of hobby/prototype PCB time. Author is a practicing hardware engineer; the skill evolved from their own workflow."
+    },
+    {
+      "slug": "hyalite-liquid-glass",
+      "name": "Hyalite Liquid Glass",
+      "url": "https://github.com/VII-Cae/hyalite--liquid-glass",
+      "tags": ["css", "glassmorphism", "liquid-glass", "refraction", "svg-filters", "webgl-free"],
+      "verdict": "worth-sharing",
+      "category": "UI Library",
+      "author": "VII-Cae",
+      "rating": 4,
+      "status": "trending",
+      "take": "Realistic liquid-glass refraction for the web using SDF lens maps, SVG displacement filters, and backdrop-filter — all in one dependency-free file (~3 KB gzipped). No WebGL, no canvas, works everywhere backdrop-filter is supported.",
+      "why": "Glassmorphism usually means a static frosted blur. Hyalite simulates actual lens refraction: content behind the glass distorts correctly as you drag the element, with chromatic aberration and caustics. It's a drop-in `<div class=\"hyalite\">` that feels like a native OS effect but runs in pure CSS/SVG.",
+      "explanation": "The effect combines three techniques: (1) an SDF (signed distance field) of the glass shape generated at build time, (2) an SVG `<feDisplacementMap>` that uses the SDF as a lens map to refract the backdrop, (3) `backdrop-filter: blur()` for the base frost. The SDF encodes thickness → displacement magnitude, so thicker 'glass' bends light more. Chromatic aberration comes from splitting RGB channels with slightly different displacement scales. The whole thing is one HTML file you can copy-paste; the demo page (vii-cae.github.io/hyalite--liquid-glass) lets you tweak thickness, IOR, dispersion, and caustic intensity in real time. MIT licensed. Useful for modal overlays, cards, navigation bars — anywhere you want 'premium feel' without a JS animation library."
+    }
+  ]
+}
