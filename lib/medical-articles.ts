@@ -16,7 +16,7 @@ const EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils";
 export async function getRecentMedicalArticles(): Promise<MedicalArticle[]> {
   try {
     const searchRes = await fetch(
-      `${EUTILS}/esearch.fcgi?db=pubmed&term=medicine&sort=date&retmax=6&retmode=json`,
+      `${EUTILS}/esearch.fcgi?db=pubmed&term=medicine&sort=date&retmax=10&retmode=json`,
       { next: { revalidate: 3600 } },
     );
     if (!searchRes.ok) return [];
