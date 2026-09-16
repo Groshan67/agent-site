@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-16",
+  "items": [
+    {
+      "slug": "cognee",
+      "name": "Cognee",
+      "url": "https://github.com/topoteretes/cognee",
+      "tags": ["agent-memory", "knowledge-graph", "graphrag", "mcp", "persistent-memory"],
+      "verdict": "must-watch",
+      "category": "Agent Infrastructure",
+      "author": "topoteretes",
+      "rating": 5,
+      "status": "trending",
+      "take": "An open-source memory platform that gives AI agents persistent, graph-structured long-term memory across sessions. Cognee ingests data in any format, builds a self-hosted knowledge graph, and continuously learns to provide the right context via a memory-native API (remember, recall, improve, forget).",
+      "why": "Agent memory today is fragmented across vector stores, conversation logs, and custom RAG pipelines. Cognee unifies them into a single graph-native layer with native MCP support — agents in Cursor, Claude Code, and Cline can share the same memory backend. 30k+ stars, Apache 2.0, graduated from GitHub's Secure Open Source Program, enterprise deployments at Bayer and Knowunity.",
+      "explanation": "Cognee treats memory as a self-improving system rather than a passive store. Its ECL pipeline (Extract → Cognify → Load) transforms raw data into a structured knowledge graph with bidirectional links across three layers: schemas (abstract ontology), facts (extracted relations), and passages (source chunks). The graph enables relational retrieval that vector search alone misses — agents can trace why a decision was made, not just what was said. Cognee exposes an MCP server so any MCP-compatible agent (Claude Code, Cursor, Cline, custom) can call remember/recall/forget directly. It runs fully embedded (SQLite + LanceDB + KuzuDB) for local dev, with swappable backends (PostgreSQL/pgvector, Neo4j, Neptune, Redis, Qdrant, Milvus, Weaviate) for production. The project has 80+ contributors, a $7.5M seed round led by Pebblebed (founders of OpenAI and FAIR), and active Discord community. Pip install: `pip install cognee`."
+    },
+    {
+      "slug": "prime-agent",
+      "name": "Prime Agent",
+      "url": "https://github.com/PrimeIntellect-ai/prime-agent",
+      "tags": ["rlm-agent", "self-improving", "reinforcement-learning", "coding-agent", "autonomous"],
+      "verdict": "must-watch",
+      "category": "Agent Framework",
+      "author": "PrimeIntellect-ai",
+      "rating": 5,
+      "status": "trending",
+      "take": "A self-improving RLM (Reinforcement Learning from Model feedback) agent for coding workflows and long-running autonomous tasks. Prime Agent learns from its own execution traces — successful patterns are crystallized into reusable skills, failures trigger automatic policy updates via verifiers.",
+      "why": "Most coding agents are static: same prompts, same tools, no learning. Prime Agent closes the loop — it runs on Prime-RL (distributed RL training infrastructure) and verifiers (RL environments + evals) to continuously improve its own policy. 20k+ stars, MIT, daily releases, active Discord. The installer (`curl -fsSL https://app.primeintellect.ai/prime-agent/install.sh | sh`) downloads a versioned, checksum-verified binary.",
+      "explanation": "Prime Agent is built around two core abstractions: (1) a persistent agent runtime that maintains state across long-running tasks (hours to days), and (2) an RLM loop where every episode (task attempt) generates training data. The verifiers library provides 100+ coded environments (code execution, test generation, repo navigation, API integration) with automatic reward signals. Prime-RL handles distributed training — you can rent GPU compute via the Prime CLI, spin up remote sandboxes, and run RL at scale. The agent ships with IPython runtime for interactive debugging, and the codebase is organized as a monorepo (packages/ for core, prime-agent-runtime/ for the execution engine). Key differentiator: it's not a wrapper around Claude/Codex — it's a standalone TypeScript agent that can use any LLM backend. Active development: 4,500+ commits, weekly releases, ARC-AGI-3 benchmark runner included. Homebrew: `brew install prime-intellect/prime/prime-agent`."
+    },
+    {
+      "slug": "omnigent",
+      "name": "Omnigent",
+      "url": "https://github.com/omnigent-ai/omnigent",
+      "tags": ["meta-harness", "agent-orchestration", "multi-agent", "policy-governance", "sandboxing"],
+      "verdict": "worth-testing",
+      "category": "Agent Orchestration",
+      "author": "omnigent-ai",
+      "rating": 4,
+      "status": "trending",
+      "take": "An open-source meta-harness that provides a unified orchestration layer for multiple AI agent frameworks — Claude Code, Codex, Cursor, Pi, and custom agents. Swap harnesses without rewriting, enforce policies and sandboxing declaratively, and collaborate in real-time from any device.",
+      "why": "Teams today juggle multiple agent tools with incompatible interfaces and no central governance. Omnigent adds a common control plane: one YAML policy config governs all agents, sandboxing (bwrap/seatbelt) isolates filesystem and network per session, and a web UI (port 6767) enables live session sharing across devices. 9.5k stars, Apache 2.0, active daily commits, Python 3.12+.",
+      "explanation": "Omnigent sits above your agent runtimes. You define agents, policies, and sandboxes in declarative YAML; Omnigent launches each agent in an isolated tmux session with optional cloud sandboxing (Modal, E2B, Databricks, Kubernetes). The web UI shows live transcripts, lets you intervene mid-run, and syncs session state across devices — useful for pair-programming with agents or handing off to a colleague. Policy enforcement is a first-class feature: resource limits, allowed commands, filesystem boundaries, and network egress rules are defined once and applied to every agent. The project is alpha (created June 2026, 500+ open issues) — suitable for experimentation, not yet for mission-critical production. Install: `git clone https://github.com/omnigent-ai/omnigent && cd omnigent && pip install -e .` (requires uv, Node.js 22, tmux, bubblewrap)."
+    }
+  ]
+}
