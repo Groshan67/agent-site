@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-17",
+  "items": [
+    {
+      "slug": "needle",
+      "name": "Needle 2",
+      "url": "https://github.com/cactus-compute/needle",
+      "tags": ["on-device-ai", "tiny-llm", "tool-calling", "quantization", "edge"],
+      "verdict": "must-watch",
+      "category": "On-Device AI",
+      "author": "cactus-compute",
+      "rating": 5,
+      "status": "trending",
+      "take": "A 45M-parameter agentic model that fits in a single 14MB binary and runs in 28MB RAM — enabling tool calling, structured extraction, and device control on phones, wearables, and microcontrollers without cloud connectivity.",
+      "why": "On-device AI has been stuck at 'chat only' — Needle 2 adds real agent capabilities (tool calling with JSON schema enforcement, 500 tok/s decode on Pi 5) at a fraction of the size of FunctionGemma 270M or LFM2.5 230M. Apache 2.0, pip installable, weights baked into the engine.",
+      "explanation": "Needle 2 is built on Cactus Compute's Simple Attention Network architecture, compressed to CQ2-bit (2-bit) quantization with their Cactus Quants technique. The model, tokenizer, and inference engine are co-designed and baked into one 14MB binary — no separate model files, no network calls at runtime. A byte-level grammar compiled from your JSON schemas constrains every token, so tool calls always return valid JSON. The 256-token sliding window with KV-sink tool pinning keeps memory bounded at ~28MB regardless of conversation length. Benchmarks show it trading wins with 5-70x larger models on tool-calling accuracy (Google Mobile Actions, DroidCall). Python SDK: `pip install cactus-needle`, then define tools as JSON schemas and call them from Python. Also runs in-browser via WebAssembly demo. Weights on Hugging Face (Cactus-Compute/needle2). Backed by Y Combinator, 10.4k stars, active development."
+    },
+    {
+      "slug": "diagram-design",
+      "name": "Diagram Design",
+      "url": "https://github.com/cathrynlavery/diagram-design",
+      "tags": ["agent-skills", "diagrams", "svg", "data-viz", "claude-code", "codex"],
+      "verdict": "worth-testing",
+      "category": "Agent Skill",
+      "author": "cathrynlavery",
+      "rating": 5,
+      "status": "trending",
+      "take": "39 editorial-quality diagram types (architecture, sequence, Gantt, quadrant, ER, Sankey, Wardley maps, and more) generated as self-contained HTML+SVG by your coding agent — brand-matched to your site in ~60 seconds, no build step, no JS dependencies.",
+      "why": "Most diagram tools output generic boxes; this skill encodes actual design taste — every type has its own layout grammar, the system asks 'does this box deserve to exist?', and it auto-extracts your brand colors/typography from a URL. Installs as a skill into Claude Code, Codex, Pi, Cursor, and OpenCode.",
+      "explanation": "Diagram Design is a single skill package (`skills/diagram-design/`) that works across all major agent platforms via the Agent Skills standard. You describe what you need in plain English ('architecture diagram of my app with frontend, backend, Redis, database'), the agent picks the right visual type, reads your website for brand tokens, and writes a standalone .html file with inline SVG. All 39 types ship in three static variants (minimal light, minimal dark, full editorial). Recent v2.5.10 added Sankey, fishbone, Wardley map, kanban, user journey, deployment, dependency graph, UML class, story map, and database schema. Install: `/plugin marketplace add cathrynlavery/diagram-design && /plugin install diagram-design@diagram-design` (Claude Code), `codex plugin marketplace add cathrynlavery/diagram-design` (Codex), `pi install https://github.com/cathrynlavery/diagram-design` (Pi). Live gallery at cathrynlavery.github.io/diagram-design. 32k stars, MIT, 14.3k stars this week."
+    },
+    {
+      "slug": "switchyard",
+      "name": "Switchyard",
+      "url": "https://github.com/NVIDIA-NeMo/Switchyard",
+      "tags": ["llm-routing", "model-selection", "cost-optimization", "proxy", "rust"],
+      "verdict": "worth-testing",
+      "category": "LLM Infrastructure",
+      "author": "NVIDIA-NeMo",
+      "rating": 4,
+      "status": "trending",
+      "take": "A Rust proxy and library that routes each LLM call to the cheapest model that can still do the job — translating between OpenAI, Anthropic, and OpenAI Responses APIs so your agent keeps its native SDK while Switchyard picks the right backend (vLLM, NIM, Ollama, any OpenAI-compatible endpoint).",
+      "why": "Most teams pick one model and overpay for easy tasks. Switchyard adds routing algorithms (LLM classifier, stage router, escalation router, random A/B) that cut costs 13-30% vs frontier baselines while maintaining 71-76% accuracy on Terminal-Bench. Embeddable library (`switchyard-libsy`) or standalone proxy (`switchyard-server`). Apache 2.0.",
+      "explanation": "Switchyard sits between your coding agent (Claude Code, Codex, OpenCode, any OpenAI/Anthropic SDK client) and model backends. It normalizes requests into a provider-agnostic format, applies a routing policy (classifier judges first turn, stage router uses tool results/errors, escalation runs weak tier first then judges), executes against the selected backend with fallback, and translates the response back to the client's expected format. Prometheus metrics cover requests, errors, latency, tokens, and routing overhead. Routing algorithms are typed and composable — bring your own or use the built-ins. Python: `pip install nemo-switchyard` (embeds `switchyard-libsy`); Rust: add `switchyard-libsy` from git; Server: `cargo install --locked switchyard-server` then `switchyard-server --config routes.toml --port 4000`. Integrations with LangChain, Kong, Boomi, Cognition, Nous Research, Ramp, Cadence, Siemens. 2.7k stars, 1.2k stars this week, launched Aug 11 2026."
+    }
+  ]
+}
