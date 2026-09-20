@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-20",
+  "items": [
+    {
+      "slug": "laya",
+      "name": "Laya",
+      "url": "https://github.com/NandhaKishorM/laya",
+      "tags": ["decision-model", "system-1", "bidirectional-encoder", "open-weights", "rlcd", "guardrails"],
+      "verdict": "must-watch",
+      "category": "ML Model",
+      "author": "ConvAI Innovations",
+      "rating": 5,
+      "status": "trending",
+      "take": "An open-source family of System 1 decision models (8-421M params) that respond in 32.8 ms/query on a single GPU — 7-8x faster than TypeSafe's closed Jev API — with 100+ language support, honest confidence scores, and Apache 2.0 weights.",
+      "why": "Laya proves a small team can beat a well-funded lab's closed product on speed, calibration, and openness. It replaces generative LLMs for high-volume classification, routing, guardrails, and triage where you need deterministic, explainable decisions in milliseconds, not token-by-token reasoning.",
+      "explanation": "Laya uses bidirectional encoders (ModernBERT/mmBERT) trained with RLCD (Reinforcement Learning for Calibrated Decisions) to output structured probability distributions over decision schemas — not free-form text. Three checkpoints: laya (421M, English classification/guardrails), laya-multilingual (322M, 100+ languages, cross-lingual NLI), laya-typed-decisions (421M, agent observability, invoice processing, security alerts at 0.766 accuracy). All three unified in one Hugging Face repo (convaiinnovations/laya) with separately downloadable subfolders. PyPI package: `pip install laya`. Benchmarks show 3x better calibration (ECE 0.081 vs 0.246), 20x faster batched latency (7.2 ms/q vs ~1,500 ms), and zero API cost vs Jev's $0.042/M tokens. The research branch has reproducible training/eval harnesses. A Kaggle notebook lets you fine-tune a custom System 1 model in ~4 hours on free GPUs."
+    },
+    {
+      "slug": "agent-skills",
+      "name": "agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills",
+      "tags": ["agent-skills", "production-engineering", "coding-agents", "workflows", "addy-osmani"],
+      "verdict": "worth-testing",
+      "category": "Agent Framework",
+      "author": "Addy Osmani",
+      "rating": 4,
+      "status": "trending",
+      "take": "A curated library of production-grade engineering skills for AI coding agents — moving beyond raw code generation to structured, reliable workflows that resemble seasoned software engineers' practices (testing, debugging, refactoring, security hardening, observability).",
+      "why": "As agents become central to development, the gap between 'it works on my prompt' and 'this passes CI in production' is where projects fail. agent-skills packages reusable, composable skills that teach agents rigorous engineering habits — the missing layer between model capabilities and shippable software.",
+      "explanation": "Each skill is a self-contained Markdown file an agent can read without special tooling, covering the full lifecycle: DEFINE (requirements extraction, spec-driven development), PLAN (schema design, task breakdown with acceptance criteria), BUILD (incremental implementation, TDD, context engineering, API design), VERIFY (browser testing with devtools, debugging), REVIEW (code quality, security auditing, performance optimization), SHIP (git workflow, CI/CD, migration, documentation, observability, launch). Includes four reviewer personas: staff-engineer code reviewer, test engineer, security auditor, web performance auditor. Built by Addy Osmani (Google Chrome team, author of Learning JavaScript Design Patterns), the repo hit GitHub Trending on Sep 19. Works with Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, and 33+ other agents via the Viserys skill pack integration. MIT license."
+    },
+    {
+      "slug": "s1code",
+      "name": "S1Code",
+      "url": "https://github.com/mertcicekci0/S1Code",
+      "tags": ["rust", "coding-agent", "system-1", "jev-integration", "terminal-agent", "decision-first"],
+      "verdict": "interesting",
+      "category": "Coding Agent",
+      "author": "mertcicekci0",
+      "rating": 3,
+      "status": "active",
+      "take": "An experimental native Rust coding agent that combines deterministic policy decisions with generative reasoning — optional Jev integration handles action selection and context eviction while S1Code owns local tool execution against real repositories.",
+      "why": "Most agents are Python/JS wrappers around LLM APIs. S1Code's Rust core gives it native performance, memory safety, and a fundamentally different architecture: a decision-first loop where a tiny System 1 model (or deterministic rules) gates every action, with generative models only for planning/codegen. Sessions persist and can rehydrate evicted context without rerunning tools.",
+      "explanation": "S1Code 0.3.0-rc.8 runs in the terminal on macOS/Linux (Windows unsupported), pins Rust 1.94.0, installs from source (no npm). The native runtime combines: deterministic `/decision rules` for action selection without a learned backend, optional `/eviction jev` for Jev-assisted context eviction (Jev credentials/billing independent of generation provider), and generative reasoning via Claude Code handoff (`/claude code`) or OpenAI Responses API. Users inspect and approve exact patches/commands, resume saved sessions, and rehydrate evicted evidence. The architecture separates 'what to do' (System 1 decisions) from 'how to do it' (generative planning), which could be a more scalable pattern than monolithic ReAct loops. MIT license. Still early — verified paths and limits documented in the repo."
+    }
+  ]
+}
