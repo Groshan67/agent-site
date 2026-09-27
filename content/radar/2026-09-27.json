@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-27",
+  "items": [
+    {
+      "slug": "magpie",
+      "name": "Magpie",
+      "url": "https://github.com/yetone/magpie",
+      "tags": ["agent-manager", "model-router", "menu-bar", "macos", "codex", "claude-code"],
+      "verdict": "worth-testing",
+      "category": "Agent Tool",
+      "author": "yetone",
+      "rating": 4,
+      "status": "trending",
+      "take": "A native macOS menu-bar app that lets you route any coding agent (Codex, Claude Code, Gemini CLI) to any model provider (DeepSeek, Kimi, OpenAI, Anthropic) — one UI to swap backends without changing your workflow.",
+      "why": "Agent lock-in is real: each tool hardcodes its model. Magpie breaks that by sitting between your agent and the API, letting you compare outputs side-by-side or fall back when one provider is down. 1.1k stars in 4 days shows the pain is widespread.",
+      "explanation": "Magpie runs as a local proxy (Go backend + SwiftUI menu bar) that implements the OpenAI-compatible /v1/chat/completions endpoint. Agents point to http://localhost:11434/v1 instead of their default API; Magpie fans out to whatever provider you select from the dropdown — DeepSeek, Kimi (Moonshot), OpenAI, Anthropic, or any custom OpenAI-compatible endpoint. It streams responses back transparently. Supports Codex, Claude Code, Gemini CLI, and any tool that respects OPENAI_BASE_URL. No telemetry, no account, MIT license. The Go core is ~2k lines and auditable."
+    },
+    {
+      "slug": "deepopen",
+      "name": "DeepOpen",
+      "url": "https://github.com/deepopen-com/deepopen",
+      "tags": ["system-1", "non-autoregressive", "decision-engine", "structured-output", "multilingual"],
+      "verdict": "must-watch",
+      "category": "ML Model",
+      "author": "DeepOpen",
+      "rating": 5,
+      "status": "trending",
+      "take": "A non-autoregressive System 1 decision engine that emits structured, typed decisions in a single forward pass — 10-100x faster than LLM-based agents for classification, routing, and guardrail tasks, with honest confidence scores.",
+      "why": "LLMs are the wrong tool for high-volume deterministic decisions (routing, policy checks, triage). DeepOpen's encoder-only architecture outputs calibrated probability distributions over a predefined schema, not tokens. It replaces entire prompt chains with one sub-millisecond call.",
+      "explanation": "DeepOpen uses a bidirectional encoder (ModernBERT backbone) trained with a contrastive objective to map inputs directly to decision logits. Three model variants ship today: deepopen-base (English, 147M params), deepopen-multilingual (100+ languages, 312M), deepopen-typed (schema-aware, 289M). All Apache 2.0, weights on Hugging Face (deepopen-com/deepopen-*). Python SDK: `pip install deepopen`. Benchmarks vs. GPT-4o-mini on 50k classification tasks: 0.92 vs 0.87 accuracy, 0.04 vs 0.21 ECE (calibration), 0.8 ms vs 1,200 ms p99 latency. The repo includes a reproducible training pipeline and a Kaggle notebook for fine-tuning custom schemas in ~2 hours on free T4s. This is the same architectural lineage as Laya (featured 2026-09-20) but with a cleaner open-source release and broader language support."
+    },
+    {
+      "slug": "golive-skill",
+      "name": "GoLive Skill",
+      "url": "https://github.com/mikehasa/golive-skill",
+      "tags": ["agent-skill", "deployment", "infrastructure", "zero-dependency", "vercel", "cloudflare", "supabase"],
+      "verdict": "worth-testing",
+      "category": "Agent Skill",
+      "author": "mikehasa",
+      "rating": 4,
+      "status": "trending",
+      "take": "An open-source Agent Skill + zero-dependency Node CLI that takes an agent-built project from code to production — provisions hosting, database, domain, email, and payments on your own cloud accounts (Vercel, Cloudflare, Supabase, Neon, Netlify, Porkbun, GoDaddy).",
+      "why": "Agents write code well but choke on the 'ship it' step. GoLive Skill codifies the entire deploy pipeline as a reusable, auditable skill: detect stack → plan resources → approve → apply → verify. No SaaS backend, no telemetry, runs entirely on your machine with your credentials.",
+      "explanation": "The skill is a single Markdown file (golive-skill.md) any agent can read — no special runtime. The companion CLI (`npx golive-skill`) implements the apply/verify steps using providers' public APIs. Supported targets: static hosting (Vercel, Netlify, Cloudflare Pages), databases (Supabase Postgres, Neon serverless Postgres), DNS/domains (Cloudflare, Porkbun, GoDaddy), email (Resend, Cloudflare Email Routing), payments (Stripe). The detect phase infers framework (Next.js, Astro, Vite, Remix, etc.) and suggests sensible defaults. All operations are idempotent and can be re-run. MIT license. Built by the Tofu team (trytofu.ai). Pairs well with agent-skills (featured 2026-09-20) as the 'SHIP' phase."
+    }
+  ]
+}
