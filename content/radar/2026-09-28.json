@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-28",
+  "items": [
+    {
+      "slug": "imp",
+      "name": "Imp",
+      "url": "https://github.com/deepfates/imp",
+      "tags": ["dspy", "elixir", "beam", "agent-framework", "llm-optimization", "otp"],
+      "verdict": "worth-testing",
+      "category": "Agent Framework",
+      "author": "deepfates",
+      "rating": 4,
+      "status": "trending",
+      "take": "A full port of Stanford's DSPy framework to the BEAM (Elixir/Erlang), bringing declarative, self-improving language-model programs to the world of OTP supervision trees and actor-based concurrency.",
+      "why": "DSPy's optimizer-driven approach (GEPA, MIPROv2, SIMBA) is powerful but Python-bound. Imp unlocks it for Elixir's fault-tolerant runtime — agents become supervised processes, model calls respect deadlines, and tool calls that may have taken effect are reported as unknown rather than silently retried. 196 stars in days and an HN feature (77 pts) signal real interest.",
+      "explanation": "Imp mirrors DSPy's core abstractions — signatures (typed input/output contracts), modules (ChainOfThought, ReAct, Predict), and optimizers (GEPA, LabeledFewShot, BootstrapFewShot, MIPROv2, SIMBA) — but reimplements them in Elixir. The runtime uses Req for HTTP, Jaxon for JSON, and erlexec for sandboxed code execution (CodeAct/PoT). Agents run as OTP processes under a supervisor; `Imp.start_run/3` lets you authorize each tool call before it executes. MCP and ACP support mean you can import any MCP server's tools or serve Imp programs to Zed/other ACP clients. The optimizers work on agents too: GEPA reflects on whole agent runs and rewrites the instructions that steer them. MIT license, on Hex as `imp` (~> 0.5). Requires Elixir 1.19+ and a C/C++ compiler for native deps.",
+      "image": ""
+    },
+    {
+      "slug": "ember-1",
+      "name": "Ember-1",
+      "url": "https://fireworks.ai/models/ember-1",
+      "tags": ["vision-model", "fireworks", "multimodal", "rl-trained", "open-weights"],
+      "verdict": "must-watch",
+      "category": "ML Model",
+      "author": "Fireworks AI",
+      "rating": 5,
+      "status": "trending",
+      "take": "Fireworks AI's new flagship vision-language model (Ember-1) — trained with reinforcement learning for specialized intelligence, featuring 1M-token context and competitive pricing at $3/M input / $15/M output. Announced 9/23/2026 and immediately featured on Hacker News (466 pts).",
+      "why": "Ember-1 represents Fireworks' push toward 'specialized intelligence' — models trained via RL on specific domains (coding, agentic tasks, tool use) rather than generic chat. It's served on Fireworks' optimized inference engine (used by Cursor, Vercel, Notion, Sourcegraph) with OpenAI/Anthropic-compatible APIs. The 1M context window and vision support make it a strong candidate for agentic workflows that need long-context reasoning over codebases or documents.",
+      "explanation": "Ember-1 is part of Fireworks' new model library focused on compounding specialized intelligence. Unlike base models that plateau after pretraining, Ember-1 continues improving through RL on real-world coding and agentic tasks — the same loop Fireworks uses for their enterprise customers (Cursor's Composer 2, Vercel's v0, Notion's AI features). Available via serverless (pay-per-token), on-demand (dedicated), or reserved (guaranteed capacity) deployments. Fireworks' inference stack is optimized at every layer for throughput/latency while preserving quality. The model supports vision, 1M context, and function calling. Weights are not yet open (Fireworks hosts them), but the company has a track record of releasing open-weight models (e.g., their contributions to Llama, Qwen ecosystems). Watch for benchmarks against GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro on coding/agent benchmarks.",
+      "image": ""
+    },
+    {
+      "slug": "lofi-cities",
+      "name": "Lofi Cities",
+      "url": "https://loficities.com",
+      "tags": ["generative-art", "pixel-art", "webgl", "creative-coding", "show-hn"],
+      "verdict": "worth-sharing",
+      "category": "Creative Tool",
+      "author": "safaelmali",
+      "rating": 4,
+      "status": "trending",
+      "take": "A beautiful browser-based generative art piece that creates infinite scrolling pixel-art city nights with synced lo-fi music — built with WebGL shaders and zero external dependencies.",
+      "why": "Show HN hit (250 pts, 112 comments) demonstrates how far browser graphics have come: procedural building generation, window lighting patterns, parallax layers, and audio-reactive visuals all in ~2KB gzipped. A delightful example of creative coding that runs smoothly on mobile.",
+      "explanation": "Lofi Cities renders an endless side-scrolling cityscape where each building is procedurally generated with varying heights, window patterns, and color palettes. The WebGL shader handles: building silhouettes with gradient skies, animated window lights (some flickering, some pulsing to music), parallax background layers (stars, distant buildings, foreground details), and a custom audio visualizer that syncs the ambient lo-fi beat to visual elements. No frameworks, no build step — just vanilla JS + GLSL. The music is procedurally generated via Web Audio API (Tone.js-style synthesis). Source is on GitHub (dashersw/lofi-cities). Great reference for shader techniques, procedural generation, and lightweight creative coding.",
+      "image": ""
+    }
+  ]
+}
