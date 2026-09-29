@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-13",
+  "items": [
+    {
+      "slug": "voicestudio",
+      "name": "VoiceStudio",
+      "url": "https://github.com/debpalash/VoiceStudio",
+      "tags": ["tts", "voice-cloning", "video-dubbing", "audiobook", "local-ai", "elevenlabs-alternative"],
+      "verdict": "must-watch",
+      "category": "Voice AI Platform",
+      "author": "debpalash",
+      "rating": 5,
+      "status": "trending",
+      "take": "A fully-local, open-source ElevenLabs alternative that runs on your own hardware. Voice cloning, video dubbing, dictation, transcription, and audiobook creation in 646 languages — all without an account, API key, or cloud dependency.",
+      "why": "Voice AI has been locked behind paid SaaS with usage meters. VoiceStudio breaks that: 16 TTS engines, 11 ASR engines, desktop app + local REST/MCP/OpenAI-compatible API, GPU auto-detect across CUDA/MPS/ROCm/CPU, and AGPL-3.0 so you own the stack. 25.5k stars in active development.",
+      "explanation": "VoiceStudio (formerly OmniVoice-Studio) is a Tauri v2 desktop app with a React frontend and FastAPI backend that orchestrates a registry of 16 TTS and 11 ASR engines. The default OmniVoice engine handles 600+ languages with zero-shot cloning and instruction-following; CosyVoice 3, VoxCPM2, IndexTTS, GPT-SoVITS, MLX-Audio, KittenTTS, and others are pluggable. Workflows cover voice cloning (3–15s reference), voice design (natural-language prompts like 'warm British audiobook narrator'), video dubbing (transcribe → translate → preserve speakers → synthesize → export), multi-voice audiobooks with EPUB/PDF import and M4B export, a system-wide dictation widget with optional local LLM cleanup, vocal isolation via Demucs, speaker diarization via Pyannote/WhisperX, and a batch queue for large jobs. It exposes an OpenAI-compatible audio API (`/v1/audio/speech`, `/v1/audio/transcriptions`, streaming WS) and an MCP server at `localhost:3900/mcp` so agents can call `generate_speech`, `clone_voice`, `transcribe`. Models download on demand; the app manages a local Python env via `uv`. AGPL-3.0 application code; model weights keep their upstream licenses (OmniVoice weights are CC-BY-NC). Active Discord, good first issues labeled, Google Colab notebook for zero-install trial."
+    },
+    {
+      "slug": "lightpanda-browser",
+      "name": "Lightpanda Browser",
+      "url": "https://github.com/lightpanda-io/browser",
+      "tags": ["headless-browser", "zig", "ai-agents", "automation", "cdp", "playwright", "puppeteer"],
+      "verdict": "must-watch",
+      "category": "Browser Infrastructure",
+      "author": "lightpanda-io",
+      "rating": 5,
+      "status": "trending",
+      "take": "A headless browser built from scratch in Zig — not a Chromium fork, not a WebKit patch. 9x faster and ~16x less memory than headless Chrome on real-world crawls, with native CDP/WebDriver BiDi support so it drops into Puppeteer, Playwright, and MCP workflows.",
+      "why": "Running Chrome at scale for AI agents is expensive and fragile. Lightpanda removes the rendering engine, uses html5ever for parsing, V8 for JS, and Zig's explicit memory control to hit 123 MB peak vs 2 GB for 100 pages. It has an `agent` mode that drives the browser via natural language and emits deterministic PandaScripts you can replay without an LLM at runtime.",
+      "explanation": "Lightpanda targets the automation/AI-agent use case where you need real JS execution (SPAs, infinite scroll, Ajax) but not pixels. Architecture: Zig 0.15.2 core, V8 isolate per page, libcurl HTTP loader, html5ever DOM, CDP server on `ws://127.0.0.1:9222` compatible with `puppeteer.connect({browserWSEndpoint})` and Playwright. `lightpanda fetch --dump markdown|png|pdf` for one-off extraction; `lightpanda serve` for persistent CDP/BiDi; `lightpanda agent --task \"...\"` for LLM-driven navigation (Anthropic, OpenAI, Gemini, Vertex, Mistral, Hugging Face, Vercel AI Gateway, any OpenAI-compatible, Ollama/llama.cpp local). The MCP server (`lightpanda mcp --port 9223`) creates isolated browsing sessions per connection via `Mcp-Session-Id` header so multiple agents don't clobber each other's cookies/page state. Agent sessions export to PandaScript — vanilla JS with native browser primitives — so you can prototype with an LLM and ship the recorded script to production token-free. Benchmarks on AWS m5.large: 100 real pages in 5s vs 46s for headless Chrome. AGPL-3.0. Nightly binaries for Linux/macOS (x86_64/aarch64), Docker images, Homebrew/Arch AUR. 35.3k stars, 9.4k commits, daily WPT runs published at perf.lightpanda.io."
+    },
+    {
+      "slug": "vomit",
+      "name": "Vomit",
+      "url": "https://github.com/zachahn/vomit",
+      "tags": ["claude-code", "token-optimization", "local-llm", "developer-tool"],
+      "verdict": "worth-testing",
+      "category": "CLI Tool",
+      "author": "zachahn",
+      "rating": 4,
+      "status": "trending",
+      "take": "A local filter that pipes Claude Code's verbose token output through a small LLM (Ollama, Llama.app, any OpenAI-compatible) to rewrite it into readable English. Runs entirely on your machine; hooks into Claude Code via hooks so the cleaned output appears in the same terminal.",
+      "why": "Claude 5's 'token vomit' (excessive thinking tokens, repetitive explanations) burns context and makes logs noisy. Vomit intercepts the stream, sends it to a local model like GPT-OSS 20B via Llama.app/Ollama, and prints the cleaned version — saving tokens and sanity. 193 stars, 257 pts on HN in 18h, GPL-3.0.",
+      "explanation": "Vomit is a Go CLI (`go install github.com/zachahn/vomit@latest`). After `vomit init` to configure your local LLM endpoint (Ollama, Llama.app, OpenAI-compatible), `vomit scrub -claude` installs a Claude Code hook that rewrites all assistant output in-place. The local model only sees what Claude tries to emit — no file access, no tool calls — so it can occasionally hallucinate but never leaks data. Non-invasive fallback: `vomit tail <session>` streams translated output for a session. Press `Ctrl-O` in Claude Code to see the original unfiltered stream. Tested on macOS; Linux/WSL should work. The author recommends GPT-OSS 20B via Llama.app for a zero-config local setup. Slow by design (extra LLM hop), but for long coding sessions the token savings and readability win. GPL-3.0."
+    }
+  ]
+}

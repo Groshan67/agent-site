@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-19",
+  "items": [
+    {
+      "slug": "openresearch",
+      "name": "OpenResearch",
+      "url": "https://github.com/alphaXiv/OpenResearch",
+      "tags": ["research-agents", "coding-agents", "autonomous-research", "rust", "agent-framework"],
+      "verdict": "must-watch",
+      "category": "Agent Framework",
+      "author": "alphaXiv",
+      "rating": 5,
+      "status": "trending",
+      "take": "A framework that turns coding agents (Claude Code, Codex) into autonomous research agents — they can formulate hypotheses, run computational experiments, iterate on code, and produce scientific outputs while preserving full local audit trails.",
+      "why": "Most AI agents stop at code generation; OpenResearch repurposes the same tool-use primitives (shell, file ops, debugging) for systematic empirical exploration. It hit #1 on GitHub Trending Rust for four straight days (Sep 15-18) with ~900 stars/day, signaling genuine developer pull.",
+      "explanation": "OpenResearch provides a local workspace where agents operate in isolated git worktrees — code, logs, conversations, and results never leave your machine. You describe a research direction ('reproduce the SWE-bench results for this paper'), the agent surveys literature, proposes experiments, writes and runs code, evaluates outcomes, and iterates. Multiple agents can run in parallel on different hypotheses. Built in Rust for performance and safety; the CLI (`ox`) manages projects, agents, and worktrees. Install: `cargo install openresearch`. MIT license. 655 stars (rapidly growing), active development, v0.2.4 released Sep 17 2026. Homepage: openresearch.sh"
+    },
+    {
+      "slug": "pi-desktop",
+      "name": "PI-Desktop",
+      "url": "https://github.com/vastsa/PI-Desktop",
+      "tags": ["local-first", "coding-agent", "desktop-app", "electron", "rust", "pi-agent"],
+      "verdict": "worth-testing",
+      "category": "Developer Tool",
+      "author": "vastsa",
+      "rating": 4,
+      "status": "trending",
+      "take": "A local-first desktop application for AI coding agents — Electron GUI paired with a Rust host core running the pi Agent Harness, giving you a dedicated, private environment where agents manage codebases, run tasks, and install plugins without sending code to the cloud.",
+      "why": "The shift to local-first agent tooling is accelerating; PI-Desktop packages a polished GUI, native Rust backend for heavy lifting, and a plugin system into a single installable app. It trended on GitHub for 6 days straight (Sep 9-17), peaking at #164 globally, with 4k stars and 3.7k% weekly growth.",
+      "explanation": "PI-Desktop splits the architecture: Electron handles the responsive UI (chat, file tree, terminal, settings) while a Rust host core manages process execution, filesystem ops, and long-running agent workloads without freezing the UI. The pi Agent Harness standardizes how agents coordinate multi-step coding tasks. Plugins are user-installable and sandboxed. Shipped so far: app shell, streaming chat runtime, workspace tools with permission system, plugin foundation, macOS packaging with auto-updates. Up next: signed/notarized macOS builds and plugin marketplace protocol. LGPL-3.0 license. Created 2023 but saw breakout growth in Sep 2026. Last push Sep 13 2026."
+    },
+    {
+      "slug": "switchyard-routing",
+      "name": "Switchyard (routing update)",
+      "url": "https://github.com/NVIDIA-NeMo/Switchyard",
+      "tags": ["llm-routing", "cost-optimization", "proxy", "rust", "nvidia"],
+      "verdict": "worth-testing",
+      "category": "LLM Infrastructure",
+      "author": "NVIDIA-NeMo",
+      "rating": 4,
+      "status": "active",
+      "take": "NVIDIA's Rust proxy that routes each LLM call to the cheapest model that can still do the job — now with new routing algorithms and broader backend support (vLLM, NIM, Ollama, any OpenAI-compatible endpoint) so agents keep their native SDKs while Switchyard picks the right model.",
+      "why": "Model routing is the practical lever for cutting LLM costs 13-30% without quality loss. Switchyard's new escalation and stage routers (weak tier first, then judge; route based on tool results) are production-grade patterns teams can drop in front of existing Claude Code, Codex, or OpenCode setups.",
+      "explanation": "Switchyard normalizes requests across OpenAI, Anthropic, and OpenAI Responses APIs, applies a routing policy (classifier, stage, escalation, or random A/B), executes against the selected backend with fallback, and translates responses back to the client's expected format. Embeddable as `switchyard-libsy` (Rust) or `nemo-switchyard` (Python), or run the standalone `switchyard-server`. Prometheus metrics cover routing overhead, latency, tokens, and errors. Apache 2.0. 2.7k stars, integrations with LangChain, Kong, Boomi, Cognition, Nous, Ramp, Cadence, Siemens. Actively developed since Aug 2026 launch."
+    }
+  ]
+}

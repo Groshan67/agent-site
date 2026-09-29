@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-15",
+  "items": [
+    {
+      "slug": "hyperframes",
+      "name": "Hyperframes",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "tags": ["video-rendering", "html-to-video", "ai-agents", "typescript", "ffmpeg", "gsap"],
+      "verdict": "must-watch",
+      "category": "Video Framework",
+      "author": "heygen-com",
+      "rating": 5,
+      "status": "trending",
+      "take": "An open-source framework that turns HTML, CSS, and JavaScript into deterministic MP4 videos — with first-class support for AI coding agents. You describe the video; an agent writes the composition; Hyperframes renders it frame-accurately via FFmpeg.",
+      "why": "Video generation has been either manual (After Effects) or black-box (Sora/Veo). Hyperframes opens a third path: code-driven, editable, agent-native. It ships 20 skills that teach Claude Code, Cursor, Codex, and Gemini CLI the production loop (plan → write HTML → wire animations → lint → preview → render), plus a CLI for local dev and cloud/AWS Lambda rendering. 44.5k stars, Apache 2.0, active daily commits.",
+      "explanation": "Hyperframes originated at HeyGen and is now fully open source under Apache 2.0. A composition is a folder of HTML/CSS/JS (with seek-safe keyframe authoring across GSAP, CSS, Anime.js, WAAPI, FLIP, SVG morph, Three.js, Lottie) plus a shared audio engine. The CLI (`npx hyperframes init/preview/render/lint/check/snapshot/publish`) gives a live-reload browser preview and deterministic MP4 output — slow machines don't drop frames because Hyperframes asks the project for each exact frame instead of recording live playback. Skills are the differentiator: `npx skills add heygen-com/hyperframes` installs an interactive router (`/hyperframes`) that picks the right workflow (video, deck, composition port) and loads domain skills on demand (`/hyperframes-keyframes`, `/hyperframes-cli`, `/hyperframes-media` for TTS/transcription/background-removal, plus adapter skills for Anime.js, CSS Animations, Lottie, Three.js, WAAPI). The same skills work in Codex (OpenAI Codex plugin), Claude Design (attached markdown guide), and any agent supporting the skills protocol. Cloud rendering via HeyGen or `lambda deploy/render/progress` for AWS Lambda. Node 22+, FFmpeg required. Active Discord, weekly changelog, showcase of remixable finished videos."
+    },
+    {
+      "slug": "orca-ade",
+      "name": "Orca",
+      "url": "https://github.com/stablyai/orca",
+      "tags": ["ade", "parallel-agents", "worktrees", "claude-code", "codex", "opencode", "mobile-app"],
+      "verdict": "must-watch",
+      "category": "Agent IDE",
+      "author": "stablyai",
+      "rating": 5,
+      "status": "trending",
+      "take": "The Agent Development Environment (ADE) for running fleets of coding agents in parallel. Orca launches Codex, Claude Code, OpenCode, Pi, and any CLI agent side-by-side — each in its own isolated git worktree — tracked in a single desktop app with a mobile companion.",
+      "why": "Running multiple agents today means juggling terminals, tabs, and context. Orca makes parallel agents a first-class workflow: fan one prompt across five agents in separate worktrees, compare diffs, merge the winner. It adds Ghostty-class terminals with infinite splits, Design Mode (click any UI element in a real Chromium window to send HTML/CSS/screenshot to the agent), native GitHub/Linear browsing, SSH worktrees for remote boxes, diff annotation, drag-and-drop file-to-agent, and a CLI (`orca worktree create/snapshot/click/fill`) so agents can drive Orca themselves. 60k stars, MIT, daily releases, macOS/Windows/Linux + iOS/Android.",
+      "explanation": "Orca is an Electron/Tauri-style desktop app (Vite + React + TypeScript) that orchestrates any terminal-based coding agent. Each agent runs in its own git worktree — isolated filesystem, independent git history — so five agents can explore five approaches to the same task without clobbering each other. The UI surfaces all worktrees in a single pane: terminal splits with WebGL rendering and persistent scrollback, a quick-open search across worktrees/files/agents/commands, account switcher with usage/rate-limit tracking for Claude/Codex, and rich repo previews (Markdown, images, PDFs). Design Mode embeds a Chromium view; clicking an element captures its HTML, computed CSS, and a cropped screenshot into the agent's prompt — closing the vision gap for frontend work. SSH worktrees let you run agents on a beefy remote machine with full file editing, git, terminals, auto-reconnect, and port forwarding. The mobile companion (iOS TestFlight, Android APK) pairs with the desktop to notify when agents finish and let you send follow-ups from your phone. The Orca CLI exposes `worktree create/snapshot/click/fill` so agents can script the orchestrator. MIT licensed, ~10k commits, daily changelog, active Discord. Homebrew: `brew install --cask stablyai/orca/orca`."
+    },
+    {
+      "slug": "open-viking",
+      "name": "OpenViking",
+      "url": "https://github.com/volcengine/OpenViking",
+      "tags": ["agent-memory", "rag", "context-database", "knowledge-graph", "skills"],
+      "verdict": "worth-testing",
+      "category": "Agent Infrastructure",
+      "author": "volcengine",
+      "rating": 4,
+      "status": "trending",
+      "take": "A self-evolving context database for AI agents that unifies agent memory, knowledge RAG, and skills into a single system. Think of it as a long-term memory layer that learns from agent interactions and improves retrieval over time.",
+      "why": "Agent memory today is fragmented: separate vector stores, skill registries, and conversation logs. OpenViking merges them into one evolving context database — agents write memories, skills, and knowledge to the same store, and the system automatically builds connections (graph edges) between related concepts. 31k stars, weekly releases, Python/Rust, Apache 2.0. Backed by VolcEngine (ByteDance's cloud arm), used in production at scale.",
+      "explanation": "OpenViking (formerly 'Volcengine OpenViking') is a context database designed for agentic workflows. It combines three layers: (1) Episodic Memory — conversation history, tool calls, and outcomes stored as versioned episodes with semantic embeddings; (2) Semantic Knowledge — a RAG layer with hybrid search (BM25 + vector) and a knowledge graph that auto-extracts entities/relations from agent interactions; (3) Skills Registry — versioned, composable skills with dependency resolution and usage analytics. The 'self-evolving' part: as agents use the system, OpenViking builds a context graph linking memories, skills, and knowledge chunks, then uses that graph to re-rank retrieval (e.g., a skill used successfully in similar episodes gets boosted). It exposes a Python SDK and REST/gRPC APIs; agents interact via standard tool calls. The storage backend is pluggable (PostgreSQL + pgvector, Milvus, custom). Deployment: Docker, Kubernetes Helm charts, or managed via VolcEngine. The repo includes example agents demonstrating memory-augmented coding, research, and customer support workflows. Active development with weekly releases; 31k stars, 2.4k forks. Apache 2.0."
+    }
+  ]
+}
