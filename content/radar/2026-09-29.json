@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-29",
+  "items": [
+    {
+      "slug": "engrim",
+      "name": "Engrim",
+      "url": "https://github.com/timgordontg/engrim",
+      "tags": ["ai-memory", "sqlite", "claude-code", "cursor", "codex", "local-first"],
+      "verdict": "worth-testing",
+      "category": "Developer Tool",
+      "author": "timgordontg",
+      "rating": 4,
+      "status": "trending",
+      "take": "A universal, local-first SQLite memory engine that gives AI coding agents (Claude Code, Cursor, Codex, OpenCode, Windsurf) persistent, project-scoped memory across session clears — zero cloud lock-in, zero telemetry.",
+      "why": "Agent context windows are expensive and forgetful; Engrim externalizes decisions, facts, and feedback into a queryable SQLite store that survives /clear, so you keep the rationale without bloating the prompt. 283 stars in days and an HN feature signal real developer pain around memory persistence.",
+      "explanation": "Engrim keeps two separate stores — a curated memory layer (decisions, facts, feedback, state) and a full-conversation log tailed from the agent's own transcript JSONL — so they never compete for context budget. The CLI exposes three tools: `engrim add` to insert tagged records, `engrim recall` for hybrid keyword+semantic search, and `engrim context` for a priority-ordered, token-budgeted boot pack injected at session start. Integrations exist for Claude Code (Stop/PreCompact hooks), Cursor (MCP), Codex CLI, and OpenCode; the core is agent-agnostic (just a SQLite file + CLI). MIT license, on PyPI as `engrim` (~> 1.4). Requires Python 3.11+; `pip install engrim && engrim setup` is the whole install.",
+      "image": ""
+    },
+    {
+      "slug": "tinyaiarena",
+      "name": "Tiny AI Arena",
+      "url": "https://github.com/hp6/ai-arena",
+      "tags": ["ai-agents", "benchmark", "visualization", "game", "show-hn"],
+      "verdict": "worth-sharing",
+      "category": "AI Evaluation",
+      "author": "hp6",
+      "rating": 4,
+      "status": "trending",
+      "take": "A browser-based arena where four LLM-powered agents battle on an 8×8 grid — move, attack, wait, grab power-ups — with full match replays, a live leaderboard, and spectator mode. Models include Grok-4.6, Claude Sonnet 5, and Claude Fable 5.1.",
+      "why": "Most AI benchmarks are static and opaque; Tiny AI Arena makes agent behavior visible and inspectable through replays, turning evaluation into something you can watch and reason about. 99 HN points in hours shows the community craves transparent, dynamic agent eval.",
+      "explanation": "Each match pits four models against each other in a turn-based tactical game: randomized turn order, 1 AP per turn (move/attack/wait), rocks as obstacles, gold power-ups (+1 AP/turn), and kill rewards (+1 AP/turn + 50 HP heal). The browser UI at tinyaiarena.com streams matches in real-time and archives every replay with frame-by-frame stepping. The leaderboard tracks Elo-style ratings across models. Source is at github.com/hp6/ai-arena (MIT). Current limitations: undocumented ruleset, no published methodology for rating calculation, and a small model pool — the author acknowledges the benchmark still has to 'earn its score.' Great for observing emergent strategies (e.g., advanced models waiting for others to weaken each other) and as a reference for building observable agent environments.",
+      "image": ""
+    },
+    {
+      "slug": "voicestudio-local",
+      "name": "VoiceStudio",
+      "url": "https://github.com/debpalash/VoiceStudio",
+      "tags": ["tts", "voice-cloning", "video-dubbing", "elevenlabs-alternative", "local-first"],
+      "verdict": "must-watch",
+      "category": "AI Application",
+      "author": "debpalash",
+      "rating": 5,
+      "status": "trending",
+      "take": "A fully-local, open-source ElevenLabs alternative — voice cloning (3-second clip), voice design (gender, age, accent, pitch, style), video dubbing (YouTube URL → multilingual MP4), dictation widget (system-wide shortcut), and audiobook creation — 16 TTS engines, 11 ASR engines, 646 languages, AGPL-3.0.",
+      "why": "ElevenLabs charges $5–$330/mo and processes audio in the cloud; VoiceStudio runs entirely on your hardware with no usage limits, no account, no API key. 19K stars and active beta releases show it's the most feature-complete local voice stack available.",
+      "explanation": "VoiceStudio (formerly OmniVoice Studio) bundles a Tauri desktop app with a Python backend (uv-managed) and a React frontend (Bun). Engines include the default k2-fsa/OmniVoice (600+ languages, zero-shot cloning), CosyVoice 3 (9 languages + 18 dialects), and 14 others switchable via Ctrl/Cmd+E. Workflows: Voice Cloning, Voice Design, Video Dubbing (transcribe → translate → preserve speakers → synthesize → export MP4), Stories/Audiobooks (multi-voice scripts, EPUB/PDF import, .m4b export), Dictation Widget (⌘⇧Space from any app), Vocal Isolation (Demucs), Speaker Diarization (Pyannote + WhisperX). Runs on macOS (ARM), Windows, Linux, and Docker; Intel Macs need a remote backend. GPU optional — CPU fallback is automatic. Also exposes agent skills for Claude Code, Codex, Cursor via `npx skills add debpalash/VoiceStudio`. Google Colab notebook for zero-install trial. Active Discord, AGPL-3.0 app with Apache-2.0 code and CC-BY-NC model weights.",
+      "image": ""
+    }
+  ]
+}
