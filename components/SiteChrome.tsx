@@ -65,7 +65,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/80">
       <div className="mx-auto flex max-w-4xl flex-col gap-2 px-6 py-8 font-mono text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
         <span>&copy; {new Date().getFullYear()} Ghasem Roshan — built with an agent in the loop</span>
-        <a href="https://github.com" className="transition-colors hover:text-foreground">
+        <a href="https://github.com/Groshan67/agent-site" className="transition-colors hover:text-foreground">
           source
         </a>
       </div>

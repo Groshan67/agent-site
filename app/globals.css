@@ -8,6 +8,7 @@
   --border: #292d33;
   --muted: #8a8f98;
   --accent: #d17128;
+  --headline: #e65e03;
 }
 
 @theme inline {
@@ -17,6 +18,7 @@
   --color-border: var(--border);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-headline: var(--headline);
   --font-sans: var(--font-ibm);
   --font-mono: var(--font-pixel);
   --font-github: var(--font-geist-mono);

@@ -9,7 +9,7 @@ export default function HealthCodesPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <h1 className="text-3xl font-medium tracking-tight text-foreground">
-        Health Codes
+        Drug Codes
       </h1>
       <p className="mt-2 max-w-xl text-sm text-muted">
         Live search against RxNorm — the U.S. National Library of Medicine&apos;s

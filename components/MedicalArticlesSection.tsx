@@ -7,19 +7,19 @@ export default async function MedicalArticlesSection() {
   return (
     <section className="mt-10">
       <div className="flex items-baseline justify-between">
-        <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
+        <h2 className="font-mono text-xs uppercase tracking-widest text-headline">
           recent medical research
         </h2>
         <a
           href="https://pubmed.ncbi.nlm.nih.gov/"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-mono text-[11px] text-muted transition-colors hover:text-accent"
+          className="font-mono text-[11px] text-accent transition-colors hover:text-accent"
         >
           via PubMed ↗
         </a>
       </div>
-      <p className="mt-1 font-mono text-[11px] text-muted">
+      <p className="mt-1 font-mono text-[11px] text-accent">
         Most recently indexed — not a ranked/trending list (PubMed doesn&rsquo;t expose one).
       </p>
 
