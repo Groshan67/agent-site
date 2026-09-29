@@ -4,7 +4,7 @@ const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/radar", label: "Radar" },
   { href: "/prompts", label: "Prompts" },
-  { href: "/health-codes", label: "IRC" },
+  { href: "/irc", label: "IRC" },
   { href: "https://github.com/Groshan67", label: "GITHUB", github: true },
 ];
 

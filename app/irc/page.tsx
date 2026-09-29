@@ -1,7 +1,7 @@
 import { getCodeSystemMeta } from "@/lib/health-codes";
 import HealthCodeSearch from "@/components/HealthCodeSearch";
 
-export const metadata = { title: "Health Codes" };
+export const metadata = { title: "IRC" };
 
 export default function HealthCodesPage() {
   const meta = getCodeSystemMeta();

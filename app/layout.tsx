@@ -60,13 +60,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://yourwebsite.com", // Replace with your actual URL
+    url: "https://agent-site-lovat.vercel.app/", // Replace with your actual URL
     title: "Ghasem Roshan — Signal | AI & Open Source Radar",
     description:
       "Stay ahead with daily insights into AI, open-source projects, and a growing public prompt library. Curated by Ghasem Roshan and an autonomous agent.",
     siteName: "Ghasem Roshan — Signal",
     // Add an Open Graph image URL here for social sharing
-    // images: [{ url: 'https://yourwebsite.com/og-image.jpg', width: 1200, height: 630, alt: 'Signal by Ghasem Roshan' }],
+    // images: [{ url: 'https://agent-site-lovat.vercel.app/og-image.jpg', width: 1200, height: 630, alt: 'Signal by Ghasem Roshan' }],
   },
   twitter: {
     card: "summary_large_image",

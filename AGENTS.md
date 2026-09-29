@@ -120,7 +120,7 @@ debounced fetch to that route) + `components/FormIcon.tsx` (small
 dose-form icons, matched via `formIconKey()` — handles both full words
 and RxTerms' abbreviations like "Tab"/"Cap"). Every result's name links
 out to its RxNav reference page (`sourceUrl`) — **there is no internal
-`/health-codes/[id]` route**; it was removed along with the static file
+`/irc/[id]` route**; it was removed along with the static file
 it depended on. Don't link a result to an internal path again — that's
 a 404 waiting to happen.
 
@@ -159,7 +159,7 @@ equipped to evaluate it. If asked to "connect this to the agent" for
 live symptom-based suggestions, decline and point back to this note.
 
 This section is a reference tool, not medical advice — keep the
-disclaimer banner on `app/health-codes/page.tsx` intact whenever this is
+disclaimer banner on `app/irc/page.tsx` intact whenever this is
 edited.
 
 ## Home-page health widgets
