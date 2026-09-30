@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-30",
+  "items": [
+    {
+      "slug": "huzzah",
+      "name": "Huzzah",
+      "url": "https://github.com/danielvaughn/hz",
+      "tags": ["ai-editor", "pseudocode", "declarative-coding", "show-hn", "pi"],
+      "verdict": "worth-testing",
+      "category": "Developer Tool",
+      "author": "danielvaughn",
+      "rating": 4,
+      "status": "trending",
+      "take": "An experimental editor that replaces imperative AI prompts with persistent, declarative pseudocode — you edit a `.hz` file describing what you want, Huzzah generates the implementation, and diffs become the prompt for subsequent changes.",
+      "why": "Coding agents treat prompts as disposable; Huzzah makes intent a first-class artifact you version, review, and refactor. 313 HN points in hours shows developers are hungry for a paradigm that keeps human intent visible and editable instead of buried in chat history.",
+      "explanation": "Huzzah is built on Pi (earendil-works/pi) and runs in the browser. You write pseudocode in a `.hz` file — terse, readable, language-agnostic — and Huzzah uses an LLM to generate real code (currently JavaScript/TypeScript) in a Web Worker. When you edit the pseudocode, Huzzah computes the diff and feeds it to the model as a focused change request, so the generated code evolves with your spec instead of being rewritten from scratch. The pseudocode file becomes living documentation of human intent. Current limitations: experimental, no LSP support, cross-file dependencies are tricky, and it's best suited for greenfield projects. Requires Node 22.19+ and any Pi-supported model provider (Anthropic, OpenAI, Google, Ollama, etc.). MIT license. Try it: `git clone https://github.com/danielvaughn/hz && cd hz && npm install && npm run dev`."
+    },
+    {
+      "slug": "openviking",
+      "name": "OpenViking",
+      "url": "https://github.com/volcengine/OpenViking",
+      "tags": ["agent-memory", "context-database", "rag", "mcp", "claude-code", "cursor", "codex", "opencode"],
+      "verdict": "must-watch",
+      "category": "Agent Infrastructure",
+      "author": "volcengine",
+      "rating": 5,
+      "status": "trending",
+      "take": "A self-evolving context database for AI agents that unifies memory, knowledge RAG, and skills under a single virtual filesystem (`viking://`). Agents browse context like files (`ls`, `tree`, `read`, `grep`), and every directory carries generated summaries so agents can judge relevance before reading full content.",
+      "why": "Agent memory today is a black box; OpenViking makes it inspectable, scoped, and composable. 39K stars, VLDB/ICDE papers backing the retrieval architecture, and native integrations for Claude Code, Cursor, Codex, OpenCode, and MCP clients signal this is becoming the standard context layer for stateful agents.",
+      "explanation": "OpenViking organizes everything an agent knows — project docs (resources), user preferences (memories), and reusable task definitions (skills) — as a queryable filesystem. Three loading tiers (L0 abstract, L1 overview, L2 details) let agents scan summaries first and pull full content only when needed. Directory-scoped semantic search means you query a project subtree, not a flat vector pool. Sessions commit to Markdown you can read, edit, and merge; VikingBot can compile them into wikis, knowledge graphs, or reports. Benchmarks: on LoCoMo (long-conversation memory), OpenViking lifts Claude Code from 57% to 80% accuracy while cutting input tokens 34–91% and latency 58–66%. On tau2-bench (multi-turn agent tasks), experience memory adds +7pp retail and +12pp airline success. Runs via `pip install openviking` (Python 3.10+), supports Volcengine, OpenAI, Codex OAuth, Kimi, GLM, Ollama. AGPLv3 core, Apache-2.0 CLI/examples. Desktop app (beta) for macOS/Windows configures local agent integrations and inspects recall events."
+    },
+    {
+      "slug": "needle",
+      "name": "Needle",
+      "url": "https://github.com/cactus-compute/needle",
+      "tags": ["edge-ai", "foundation-model", "tool-calling", "on-device", "tinyml", "function-calling"],
+      "verdict": "worth-testing",
+      "category": "ML Model",
+      "author": "cactus-compute",
+      "rating": 5,
+      "status": "trending",
+      "take": "A 2-bit, 8–29 MB automation foundation model (Needle 3) that runs tool calling, structured extraction, and embeddings entirely on phones, wearables, robots, and microcontrollers — beating models 10× its size on exact-match function calling and matching 2–3× larger models on extraction.",
+      "why": "On-device LLMs usually sacrifice capability for size; Needle trades general chat for laser-focused automation primitives (tool calls, typed extraction, confidence scores) and delivers SOTA results at 121M params. 12.9K stars, Apache-2.0, and a laddered architecture where every 2–20 layer depth is a deployable subnetwork make it uniquely practical for edge deployment.",
+      "explanation": "Needle 3 is a Laddered Simple Attention Network: Monarch Hadamard MLP replaces the FFN, GQA attention with causal conv taps, engram n-gram memory read by gather, and multi-lane hyper-connections. Most params sit in the engram, so the 121M model does the arithmetic of a 50M one. A byte-level grammar compiled from your tool schemas constrains every token, guaranteeing parsable JSON output. Every response includes a calibrated confidence score; off-topic requests return an empty call list instead of hallucinating. Fine-tuning is a first-class workflow: local LoRA (`needle finetune`) or platform full-model tuning (`needle platform finetune`) with your tool definitions — DroidCall fine-tuning lifts every subnetwork by 18–36 points, and from 4 layers up the tuned model passes DeepSeek V4 Flash at 29M params. Deployment targets ship a <1 MB engine (macOS ARM64, Linux ARM64, WASI, browser, bare metal) that memory-maps the `.cact` weights. Python API: `@needle.tool` decorators turn functions into callable tools; `needle.Needle(tools=[...]).run(user_text)` returns `{function_calls, reasoning, confidence}`. Citation: arXiv:2605.29640 (VLDB 2026), arXiv:2606.16903 (ICDE 2026), arXiv:2609.11390 (submitted)."
+    }
+  ]
+}
