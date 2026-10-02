@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-02",
+  "items": [
+    {
+      "slug": "magnitude",
+      "name": "Magnitude",
+      "url": "https://github.com/magnitudedev/magnitude",
+      "tags": ["local-inference", "llama.cpp", "agent-harness", "privacy", "offline-ai", "hardware-profiling", "yc-s25"],
+      "verdict": "must-watch",
+      "category": "Inference Engine",
+      "author": "magnitudedev",
+      "rating": 5,
+      "status": "trending",
+      "take": "An open-source inference engine that profiles your exact hardware, compiles and autotunes kernels for it, then runs models up to 2x faster than llama.cpp — with speculative decoding, on-demand loading, memory protection, and one-click integration into Pi, OpenCode, Codex, Claude Code, and more.",
+      "why": "Most inference engines ship precompiled kernels for broad hardware classes; Magnitude compiles on your actual device so kernels fit your specific chip (Metal, CUDA, ROCm, or CPU). It also manages the full model lifecycle — downloads, loads on demand, unloads under memory pressure — and exposes an OpenAI-compatible API so any agent harness works without changes. Launched on HN today (126 pts, 57 comments), YC S25, Apache-2.0.",
+      "explanation": "Magnitude replaces the guesswork of local inference with a hardware-aware catalog: on first run it profiles your processor, memory, and memory bandwidth, then ranks model/quant/context combos with estimated tok/s, intelligence scores, and memory footprints. You pick one, it downloads the GGUF, configures hardware acceleration, enables speculative decoding and concurrency tuned for your machine, and connects it to your harness via a single prompt. The inference engine is Rust on llama.cpp, managed internally — no separate Ollama/LM Studio server needed. Models load on first request, stay warm during active sessions (with prompt-cache reuse), and unload after inactivity or memory pressure. A continuous memory monitor stops the model before it destabilizes the host. The normalized tool-call/chat-template layer means switching models doesn't require harness changes. Built-in harness included, or connect Pi, OpenCode, Hermes, OpenClaw, Codex, Claude Code, Oh My Pi, or Cline. macOS/Linux native, Windows via WSL. YC-backed."
+    },
+    {
+      "slug": "hindsight",
+      "name": "Hindsight",
+      "url": "https://github.com/vectorize-io/hindsight",
+      "tags": ["agent-memory", "longmemeval", "biomimetic", "learning-agents", "vectorize", "mcp"],
+      "verdict": "must-watch",
+      "category": "Agent Memory",
+      "author": "vectorize-io",
+      "rating": 5,
+      "status": "trending",
+      "take": "Agent memory that learns from mistakes and builds judgment over time — not just fact recall. Uses biomimetic data structures (World facts, Experiences, Mental Models) to achieve SOTA 94.6% on LongMemEval vs 85% Supermemory, 71% Zep, 60% GPT-4o. One-command install into Claude Code, Cursor, or any agent via MCP.",
+      "why": "Every other memory system stores and retrieves facts. Hindsight adds a reflection layer that synthesizes raw observations into consolidated knowledge — so when your agent fails a tool call or gets corrected, that becomes an experience it won't repeat. Per-user memory banks persist across sessions with sub-100ms recall. MIT licensed, 42K stars, production at Fortune 500s.",
+      "explanation": "Hindsight organizes memory like human cognition: World (facts about the world), Experiences (the agent's own lived events), and Mental Models (learned understanding synthesized by reflecting on raw memories). Memories flow through either the World or Experience pathway, then get represented as entities, relationships, and time series with sparse/dense vectors for recall. Three primitives: Retain (push info), Recall (retrieve), Reflect (synthesize new insights). The reflection layer runs automatically on a schedule or on-demand, consolidating patterns into reusable mental models that guide future decisions. Integrates via LLM wrapper (2 lines of code), MCP server, or native skills for Claude Code, Cursor, OpenCode, Codex. Docker, Kubernetes (Helm), and managed cloud available. Benchmarks continuously published at benchmarks.hindsight.vectorize.io with independent reproduction by Virginia Tech and The Washington Post."
+    },
+    {
+      "slug": "openshell",
+      "name": "NVIDIA OpenShell",
+      "url": "https://github.com/NVIDIA/OpenShell",
+      "tags": ["agent-sandbox", "security", "policy-enforcement", "nvidia", "microvm", "declarative-policy"],
+      "verdict": "worth-testing",
+      "category": "Agent Runtime",
+      "author": "NVIDIA",
+      "rating": 4,
+      "status": "active",
+      "take": "A safe, private runtime for fleets of autonomous AI agents that enforces declarative YAML policies at the kernel level — governing every file access, system call, and network connection. Agents get exactly the permissions they need (credentials, APIs, file scopes) and nothing more, with formal verification checking policy changes before they apply.",
+      "why": "As agents gain ability to install packages, call APIs, and use credentials, the blast radius of a compromised or misbehaving agent grows. OpenShell contains that risk with kernel-instrumented sandboxing (MicroVMs, Docker, Podman) and L7 network policies (e.g., allow GET, block POST). Ships agent skills so your coding agent can write and debug sandbox policies natively. Apache-2.0, 12.8K stars, Python/TS/Go/Rust SDKs.",
+      "explanation": "OpenShell governs agents in two ways: (1) it instruments the kernel to enforce policy on every file access, syscall, and network connection at runtime, and (2) it uses formal verification (Z3) to prove what a policy change would allow before it's applied. Policies are declarative YAML — you declare what each agent can touch (paths, network domains, credentials), and OpenShell enforces it. Credentials are managed as providers (named bundles) injected as env vars at sandbox start, never written to disk. The CLI auto-discovers credentials for Claude, Codex, OpenCode, Copilot from your shell. Quickstart: `curl -LsSf https://raw.githubusercontent.com/NVIDIA/OpenShell/main/install.sh | sh` then `openshell sandbox create`. Kubernetes/Helm deployment available. Agent skills install via `npx skills add NVIDIA/OpenShell` and teach agents to drive the CLI, write policies, and debug gateways."
+    }
+  ]
+}
